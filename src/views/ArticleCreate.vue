@@ -175,7 +175,6 @@ export default {
     saveData() {
       this.article.date = new Date();
       const paragraphs = document.querySelectorAll(".ql-editor p");
-      console.log(paragraphs);
       var count = 0;
       for (var i = 0; i < paragraphs.length; i++) {
         // Split the innerHtml of the current paragraph to count the words.
@@ -185,7 +184,7 @@ export default {
       if (readingTime < 1) {
         this.article.readingTime = 1;
       } else {
-        this.article.readingTime = count;
+        this.article.readingTime = readingTime;
       }
       this.article.urlTitle = this.article.title
         .replace(" ", "-")

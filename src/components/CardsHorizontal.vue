@@ -1,20 +1,21 @@
 <template>
   <!-- TODO Ajouter à cardHorizontal, cardVertical et Recomendaciones les aria-label avec matching sur les id pour titre, description et temps de lecture incrémente avec type de card nécessaire à passer en paramètre -->
-  <div v-if="this.size === 'half'" class="row">
+  <div v-if="this.size === 'half'" class="row" :key="componentKey">
     <div
       v-for="(article, index) in articles"
       v-bind:key="index"
       class="col-md-6"
     >
-      <!--<a class="d-inline-block w-100" href="/blog">-->
-      <router-link
-        class="d-inline-block w-100"
-        :to="{
-          path: `/blog/${article.data().urlTitle}`,
-          query: { articleId: article.id }
-        }"
+      <a
+        href="javascript:void(0)"
+        class="d-inline-block w-100 mb-3"
+        @click="forceRerender(`/blog/${article.data().urlTitle}`, article.id)"
+        :aria-labelledby="'blog-' + type + 'title-' + index"
+        :aria-describedby="
+          'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
+        "
       >
-        <div class="card mb-3 body-card">
+        <div class="card body-card">
           <div class="row ">
             <div class="col-card-4">
               <div class="image-wrapper-horiz">
@@ -30,21 +31,28 @@
                 <div class="categoria card-title h5">
                   {{ article.data().tags[0] }}
                 </div>
-                <h3 class="card-title">{{ article.data().title }}</h3>
-                <p class="card-text bajada">
+                <h3 class="card-title" :id="'blog-' + type + 'title-' + index">
+                  {{ article.data().title }}
+                </h3>
+                <p
+                  class="card-text bajada"
+                  :id="'blog-' + type + 'desc-' + index"
+                >
                   {{ article.data().excerpt }}
                 </p>
                 <p class="card-text tiempo">
-                  <span class="lectura">
+                  <span class="lectura" aria-hidden="true">
                     Tiempo de lectura: {{ article.data().readingTime }}’
+                  </span>
+                  <span class="sr-only" :id="'blog-' + type + 'time-' + index">
+                    Tiempo de lectura: {{ article.data().readingTime }} minutos
                   </span>
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <!--</a>-->
-      </router-link>
+      </a>
     </div>
   </div>
   <div v-else class="row">
@@ -53,15 +61,16 @@
       v-bind:key="index"
       class="col-md-12"
     >
-      <!--<a class="d-inline-block w-100" href="/blog">-->
-      <router-link
-        class="d-inline-block w-100"
-        :to="{
-          path: `/blog/${article.data().urlTitle}`,
-          query: { articleId: article.id }
-        }"
+      <a
+        href="javascript:void(0)"
+        class="d-inline-block w-100 mb-3"
+        @click="forceRerender(`/blog/${article.data().urlTitle}`, article.id)"
+        :aria-labelledby="'blog-' + type + 'title-' + index"
+        :aria-describedby="
+          'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
+        "
       >
-        <div class="card mb-3 body-card">
+        <div class="card body-card">
           <div class="row ">
             <div class="col-card-4">
               <div class="image-wrapper-horiz">
@@ -77,21 +86,28 @@
                 <div class="categoria card-title h5">
                   {{ article.data().tags[0] }}
                 </div>
-                <h3 class="card-title">{{ article.data().title }}</h3>
-                <p class="card-text bajada">
+                <h3 class="card-title" :id="'blog-' + type + 'title-' + index">
+                  {{ article.data().title }}
+                </h3>
+                <p
+                  class="card-text bajada"
+                  :id="'blog-' + type + 'desc-' + index"
+                >
                   {{ article.data().excerpt }}
                 </p>
                 <p class="card-text tiempo">
-                  <span class="lectura">
+                  <span class="lectura" aria-hidden="true">
                     Tiempo de lectura: {{ article.data().readingTime }}’
+                  </span>
+                  <span class="sr-only" :id="'blog-' + type + 'time-' + index">
+                    Tiempo de lectura: {{ article.data().readingTime }} minutos
                   </span>
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </router-link>
-      <!--</a>-->
+      </a>
     </div>
   </div>
 </template>
@@ -104,32 +120,28 @@ export default {
   props: ["type", "size"],
   data() {
     return {
-      articles: []
+      articles: [],
+      componentKey: 0
     };
+  },
+  methods: {
+    forceRerender(url, articleId) {
+      console.log(url);
+      //this.$router.go(url);
+      window.location.href = url + "?articleId=" + articleId;
+    }
   },
   created() {
     var articlesRef = db.collection("articles");
-    if (this.type === "recent") {
-      articlesRef
-        .orderBy("date", "desc")
-        .limit(2)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.articles.push(doc);
-          });
+    articlesRef
+      .orderBy(this.type, "desc")
+      .limit(2)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.articles.push(doc);
         });
-    } else {
-      articlesRef
-        .orderBy("shared", "desc")
-        .limit(2)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.articles.push(doc);
-          });
-        });
-    }
+      });
   }
 };
 </script>

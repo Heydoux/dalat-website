@@ -1,20 +1,15 @@
 <template>
   <header>
-    <router-link to="#mainContent" id="skipcontent">
+    <a href="#mainContent" id="skipcontent" @click="jumpMainContent">
       Saltar a contenido
-    </router-link>
+    </a>
     <div class="container-lg">
       <div class="row align-items-center">
         <div id="menu-handlers">
-          <button id="menuOpenBtn" to="#" onClick="{this.openMenu}">
+          <button id="menuOpenBtn" to="#" @click="openMenu">
             <img src="@/assets/images/header/Grupo_102.png" alt="" width="40" />
           </button>
-          <button
-            id="menuCloseBtn"
-            to="#"
-            class="d-none"
-            onClick="{this.closeMenu}"
-          >
+          <button id="menuCloseBtn" to="#" class="d-none" @click="closeMenu">
             <img src="@/assets/images/header/Grupo_103.png" alt="" width="40" />
           </button>
         </div>
@@ -31,22 +26,26 @@
           <div class="menu">
             <ul class="list-unstyled mb-0" role="list">
               <li class="d-inline-block">
-                <router-link to="/blog" class="d-block">Blog</router-link>
+                <router-link to="/blog" class="d-block px-3">Blog</router-link>
               </li>
               <li class="d-inline-block">
-                <router-link to="/sobre-dalat" class="d-block">
+                <router-link to="/sobre-dalat" class="d-block px-3">
                   Sobre Nosotros
                 </router-link>
               </li>
               <li class="d-inline-block">
-                <router-link to="/contacto" class="d-block">
+                <router-link to="/contacto" class="d-block px-3">
                   Contacto
                 </router-link>
               </li>
               <li class="d-inline-block">
-                <router-link to="/contacto" class="d-block active">
+                <a
+                  href="https://dalat-a11y.slack.com/"
+                  class="d-block active px-3 ml-4"
+                  target="_blank"
+                >
                   Unirme a la comunidad
-                </router-link>
+                </a>
               </li>
             </ul>
           </div>
@@ -61,6 +60,28 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String
+  },
+  methods: {
+    jumpMainContent() {
+      $("#mainContent").focus();
+    },
+    openMenu() {
+      $("nav").css("display", "block");
+      $("#menuCloseBtn").removeClass("d-none");
+      $("#menuCloseBtn").addClass("d-block");
+      $("#menuOpenBtn").addClass("d-none");
+      $("#menuOpenBtn").addClass("d-none");
+      $("header").css("height", "100vh");
+      $("#menu-handlers").addClass("position-relative");
+    },
+    closeMenu() {
+      $("nav").css("display", "none");
+      $("#menuCloseBtn").addClass("d-none");
+      $("#menuCloseBtn").removeClass("d-block");
+      $("#menuOpenBtn").removeClass("d-none");
+      $("header").css("height", "unset");
+      $("#menu-handlers").removeClass("position-relative");
+    }
   }
 };
 </script>
@@ -96,20 +117,25 @@ header {
 
   nav {
     text-align: right;
-    line-height: 70px;
+    height: 70px;
 
-    a {
-      padding: 0px 10px;
-      color: $blue;
-      border-radius: 12px 2px;
-      font-weight: 600;
+    ul {
+      line-height: 45px;
+      margin-top: 12px;
 
-      &.active {
-        background-color: $blue;
-        color: $white;
+      a {
+        color: $blue;
+        border-radius: 12px 2px;
+        font-weight: 700;
 
-        &:focus {
-          box-shadow: 0 0 0 2px $white, 0 0 0 4px $blue, 0 0 0 6px $white;
+        &.active {
+          background-color: $blue;
+          color: $white;
+          font-weight: normal;
+
+          &:focus {
+            box-shadow: 0 0 0 2px $white, 0 0 0 4px $blue, 0 0 0 6px $white;
+          }
         }
       }
     }
@@ -178,12 +204,16 @@ header {
                 color: $blue;
                 font-size: 18px;
                 font-weight: bold;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
 
                 &.active {
                   text-align: center;
                   color: $white;
                   font-weight: normal;
                   line-height: 50px;
+                  padding-top: 0;
+                  padding-bottom: 0;
                 }
               }
             }

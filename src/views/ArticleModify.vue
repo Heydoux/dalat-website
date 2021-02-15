@@ -33,11 +33,7 @@
             <button id="btn-update" @click="updateData" class="btn btn-primary">
               Modificar
             </button>
-            <button
-              v-if="toUpdate"
-              @click="deleteArticle(article)"
-              class="ml-3 btn btn-danger"
-            >
+            <button @click="deleteArticle(article)" class="ml-3 btn btn-danger">
               Borrar
             </button>
           </div>
@@ -181,28 +177,54 @@ export default {
   },
   methods: {
     updateData() {
+      const paragraphs = document.querySelectorAll(".ql-editor p");
+      var count = 0;
+      for (var i = 0; i < paragraphs.length; i++) {
+        // Split the innerHtml of the current paragraph to count the words.
+        count += paragraphs[i].innerHTML.split(" ").length;
+      }
+      var readingTime = Math.round(count / 270);
+      if (readingTime < 1) {
+        this.article.readingTime = 1;
+      } else {
+        this.article.readingTime = readingTime;
+      }
       this.article.urlTitle = this.article.title
         .replace(" ", "-")
         .toLowerCase();
-      let image = fb.storage().refFromURL(this.activeImg);
-      image
-        .delete()
-        .then(() => {
-          console.log("image deleted");
-          db.collection("articles")
-            .doc(this.activeItem)
-            .update(this.article)
-            .then(() => {
-              console.log("Document successfully updated!");
-              $("#successUpdate").modal("show");
-            })
-            .catch(error => {
-              console.error("Error updating document: ", error);
-            });
-        })
-        .catch(function(error) {
-          console.log("An error occured: ", error);
-        });
+      if (this.toUpdate) {
+        let image = fb.storage().refFromURL(this.activeImg);
+        console.log(image);
+        image
+          .delete()
+          .then(() => {
+            console.log("image deleted");
+            db.collection("articles")
+              .doc(this.activeItem)
+              .update(this.article)
+              .then(() => {
+                console.log("Document successfully updated!");
+                $("#successUpdate").modal("show");
+              })
+              .catch(error => {
+                console.error("Error updating document: ", error);
+              });
+          })
+          .catch(function(error) {
+            console.log("An error occured: ", error);
+          });
+      } else {
+        db.collection("articles")
+          .doc(this.activeItem)
+          .update(this.article)
+          .then(() => {
+            console.log("Document successfully updated!");
+            $("#successUpdate").modal("show");
+          })
+          .catch(error => {
+            console.error("Error updating document: ", error);
+          });
+      }
     },
     reset() {
       Object.assign(this.$data, this.$options.data.apply(this));
@@ -247,6 +269,7 @@ export default {
     },
     uploadImage(e) {
       this.activeImg = this.article.image;
+      this.toUpdate = true;
       let file = e.target.files[0];
       var storageRef = fb
         .storage()
@@ -269,8 +292,8 @@ export default {
     /* if data was sent through router-link display it */
     if (this.$route.params.data) {
       this.article = this.$route.params.data;
-      this.toUpdate = true;
       this.activeItem = this.article.id;
+      this.activeImg = this.article.image;
     }
   }
 };

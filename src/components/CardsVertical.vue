@@ -13,6 +13,10 @@
             path: `/blog/${article.data().urlTitle}`,
             query: { articleId: article.id }
           }"
+          :aria-labelledby="'blog-' + type + 'title-' + index"
+          :aria-describedby="
+            'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
+          "
         >
           <div class="vertical-body card">
             <div class="image-wrapper-vert">
@@ -23,23 +27,40 @@
               />
             </div>
             <div class="card-body">
-              <div class="categoria card-title h5">
+              <div class="categoria card-title h5 text-uppercase">
                 {{ article.data().tags[0] }}
               </div>
-              <div class="card-subtitle h6">
+              <div
+                class="card-subtitle h6"
+                :id="'blog-' + type + 'title-' + index"
+              >
                 <h3>{{ article.data().title }}</h3>
               </div>
-              <p class="bajada card-text">
+              <p
+                class="bajada card-text"
+                :id="'blog-' + type + 'desc-' + index"
+              >
                 {{ article.data().excerpt }}
               </p>
-              <p class="tiempo card-text">
+              <p class="tiempo card-text" aria-hidden="true">
                 Tiempo de lectura: {{ article.data().readingTime }}'
+              </p>
+              <p class="sr-only" :id="'blog-' + type + 'time-' + index">
+                Tiempo de lectura: {{ article.data().readingTime }} minutos
               </p>
             </div>
           </div>
         </router-link>
         <!--</a>-->
       </div>
+    </div>
+    <div
+      v-if="this.load === 'more' && articles.length > this.limit"
+      class="d-flex justify-content-center"
+    >
+      <button type="button" class="btn btn-mas" @click="showmore">
+        Mostrar más notas
+      </button>
     </div>
   </div>
 </template>
@@ -49,35 +70,41 @@ import { db } from "../firebase";
 
 export default {
   name: "CardsVertical",
-  props: ["type"],
+  props: ["type", "limit", "load"],
   data() {
     return {
-      articles: []
+      articles: [],
+      lastVisible: null
     };
   },
-  created() {
-    var articlesRef = db.collection("articles");
-    if (this.type === "recent") {
-      articlesRef
-        .orderBy("date", "desc")
-        .limit(3)
+  methods: {
+    showmore() {
+      console.log("last: ", this.lastVisible);
+      db.collection("articles")
+        .orderBy(this.type, "desc")
+        .startAfter(this.lastVisible)
+        .limit(this.limit)
         .get()
         .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.articles.push(doc);
-          });
-        });
-    } else {
-      articlesRef
-        .orderBy("shared", "desc")
-        .limit(3)
-        .get()
-        .then(querySnapshot => {
+          this.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
           querySnapshot.forEach(doc => {
             this.articles.push(doc);
           });
         });
     }
+  },
+  created() {
+    var articlesRef = db.collection("articles");
+    articlesRef
+      .orderBy(this.type, "desc")
+      .limit(this.limit)
+      .get()
+      .then(querySnapshot => {
+        this.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        querySnapshot.forEach(doc => {
+          this.articles.push(doc);
+        });
+      });
   }
 };
 </script>
@@ -88,15 +115,6 @@ export default {
   height: 210px;
   position: relative;
   overflow: hidden;
-}
-
-.card-img-top {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-  height: 100%;
 }
 
 .categoria {
@@ -126,6 +144,13 @@ h3 {
 
 .vertical-body {
   background-color: $grey;
+  border: none;
+}
+
+.btn-mas {
+  color: rgb(255, 255, 255);
+  background-color: rgb(113, 62, 148);
+  border-radius: 12px 2px;
   border: none;
 }
 </style>

@@ -134,7 +134,7 @@ export default {
       fb.auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.replace("admin/dashboard");
+          this.$router.replace("admin/articlelist");
         })
         .catch(function(error) {
           var errorCode = error.code;

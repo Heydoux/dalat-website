@@ -9,21 +9,21 @@
         />
       </div>
       <div class="row no-gutters align-items-center">
-        <div class="col footer-slogan text-center text-md-left">
+        <div class="col footer-slogan text-sm-center">
           Somos un grupos de profesionales especializados en accesibilidad.
         </div>
-        <div class="col footer-nav text-center text-md-right mt-4 mt-md-0">
+        <div class="col footer-nav text-sm-cente mt-4 mt-md-0">
           <ul class="list-unstyled mb-0" role="list">
-            <li class="d-block d-sm-inline-block">
+            <li class="d-inline-block">
               <a classnamename="d-block" href="/blog">Blog</a>
             </li>
-            <li class="d-block d-sm-inline-block">
+            <li class="d-inline-block">
               <a classnamename="d-block" href="/sobre-dalat">Sobre Nosotros</a>
             </li>
-            <li class="d-block d-sm-inline-block">
+            <li class="d-inline-block">
               <a classnamename="d-block" href="/contacto">Contacto</a>
             </li>
-            <li class="d-block d-sm-inline-block">
+            <li class="d-inline-block">
               <a classnamename="d-block" href="/unirse-a-la-comunidad">
                 Unirme a la comunidad
               </a>
@@ -98,5 +98,11 @@ footer {
 .footer-copy {
   padding: 15px 0;
   background-color: #0e0e0e;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-slogan {
+    padding-left: 10px !important;
+  }
 }
 </style>

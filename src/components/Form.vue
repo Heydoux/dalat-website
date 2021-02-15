@@ -94,15 +94,21 @@
         <a href="mailto:dalat@gmail.com" class="mail">dalat@gmail.com</a>
       </div>
       <div class="col-lg-6">
-        <form role="form" aria-label="Formulario de Contacto" class="">
+        <form
+          role="form"
+          aria-label="Formulario de Contacto"
+          @submit="saveContactMessage"
+        >
           <div class="form-group" data-children-count="1">
-            <label class="form-label" for="nombre">Nombre</label>
+            <label class="form-label" for="name">Nombre</label>
             <input
               required=""
               placeholder="Ej: Juan Dominguez"
-              type="text"
-              id="nombre"
+              id="name"
+              type="name"
+              name="name"
               class="form-control"
+              v-model="name"
             />
           </div>
           <div class="form-group" data-children-count="1">
@@ -110,20 +116,24 @@
             <input
               required=""
               placeholder="Ej: juandominguez@gmail.com"
-              type="email"
               id="email"
+              type="email"
+              name="email"
+              v-model="email"
               class="form-control"
               data-kwimpalastatus="alive"
               data-kwimpalaid="1610903784165-1"
             />
           </div>
           <div class="form-group" data-children-count="1">
-            <label class="form-label" for="mensaje">Mensaje</label>
+            <label class="form-label" for="message">Mensaje</label>
             <textarea
               required=""
               rows="5"
               placeholder="Escribe tu mensaje"
-              id="email"
+              name="message"
+              id="message"
+              v-model="message"
               class="form-control"
             >
             </textarea>
@@ -136,9 +146,34 @@
 </template>
 
 <script>
+import { db } from "../firebase";
+
 export default {
   name: "Form",
-  props: {}
+  props: {},
+  data() {
+    return {
+      errors: [],
+      email: null,
+      name: null,
+      message: null
+    };
+  },
+  methods: {
+    saveContactMessage(e) {
+      e.preventDefault();
+      const messagesRef = db.collection("message");
+      messagesRef.add({
+        name: this.name,
+        email: this.email,
+        message: this.message,
+        time: new Date()
+      });
+      this.name = "";
+      this.email = "";
+      this.message = "";
+    }
+  }
 };
 </script>
 
@@ -197,9 +232,18 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
+  form {
+    margin-top: 2rem;
+  }
+
   .icon {
     width: 35px;
     margin-right: 16px;
+  }
+
+  .boton {
+    width: 100%;
+    right: unset;
   }
 }
 </style>

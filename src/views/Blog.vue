@@ -11,27 +11,18 @@
           alt=""
         />
       </div>
-      <h2>Lo ultimo del blog</h2>
       <div class="row">
         <div class="col-md-8">
-          <CardsHorizontal type="recent" size="full"></CardsHorizontal>
+          <h2 class="text-uppercase mb-4">Lo ultimo del blog</h2>
+          <CardsHorizontal type="date" size="full"></CardsHorizontal>
         </div>
         <div class="d-none d-sm-block col-md-4">
-          <h2>RECOMENDADO</h2>
+          <h2 class="text-uppercase mb-4">RECOMENDADO</h2>
           <Recomendaciones></Recomendaciones>
         </div>
       </div>
-      <h2 class="w-100">mas compartido</h2>
-      <CardsVertical type="shared"></CardsVertical>
-      <div style="display: flex; justify-content: center;">
-        <button
-          type="button"
-          class="btn btn-primary"
-          style="color: rgb(255, 255, 255); background-color: rgb(113, 62, 148); border-radius: 12px 2px; border: none;"
-        >
-          Mostrar más notas
-        </button>
-      </div>
+      <h2 class="w-100 text-uppercase mb-4">mas compartido</h2>
+      <CardsVertical type="shared" limit="6" load="more"></CardsVertical>
     </main>
     <Footer></Footer>
   </div>
@@ -49,6 +40,13 @@ export default {
     Recomendaciones,
     CardsVertical,
     CardsHorizontal
+  },
+  data() {
+    return {
+      start: 3,
+      end: 8,
+      step: 6
+    };
   }
 };
 </script>

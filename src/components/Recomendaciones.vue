@@ -2,7 +2,7 @@
   <a href="" class="d-inline-block w-100">
     <div class="card-aspect card">
       <div class="imgs-block">
-        <img
+        <!--<img
           src="@/assets/images/cardHorizontal.png"
           class="imagen imagen1"
           alt=""
@@ -11,7 +11,7 @@
           src="@/assets/images/cardHorizontal.png"
           class="imagen imagen2"
           alt=""
-        />
+        />-->
       </div>
       <div class="text-block">
         <h3>TITULO ARTICULO</h3>

@@ -21,34 +21,12 @@
               <div class="sidebar-item sidebar-brand">
                 <a href="#">Dalat Administración</a>
               </div>
-              <!-- sidebar-header  -->
-              <div class="sidebar-item sidebar-header d-flex flex-nowrap">
-                <div class="user-info">
-                  <span class="user-name">
-                    Jhon
-                    <strong>Smith</strong>
-                  </span>
-                  <span class="user-role">Administrador</span>
-                </div>
-              </div>
               <!-- sidebar-menu  -->
-              <div class=" sidebar-item sidebar-menu">
+              <div class="sidebar-item sidebar-menu">
                 <ul>
                   <li class="header-menu">
                     <span>General</span>
                   </li>
-                  <!--
-                  <li class="sidebar-dropdown">
-                    <router-link to="/admin/dashboard">
-                      <img
-                        src="@/assets/images/admin/dashboard.svg"
-                        alt=""
-                        class="icon"
-                      />
-                      <span class="menu-text">Tablero</span>
-                    </router-link>
-                  </li>
-                  -->
                   <li class="sidebar-dropdown">
                     <router-link to="/admin/articlecreate">
                       <img
@@ -69,28 +47,19 @@
                       <span class="menu-text">Lista de articulos</span>
                     </router-link>
                   </li>
+                  <!--<li class="sidebar-dropdown">
+                    <router-link to="/admin/profesionales">
+                      <img
+                        src="@/assets/images/admin/add-pro.svg"
+                        alt=""
+                        class="icon"
+                      />
+                      <span class="menu-text">Profesionales</span>
+                    </router-link>
+                  </li>-->
                 </ul>
               </div>
               <!-- sidebar-menu  -->
-            </div>
-            <div
-              id="mCSB_1_scrollbar_vertical"
-              class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical"
-              style="display: none;"
-            >
-              <div class="mCSB_draggerContainer">
-                <div
-                  id="mCSB_1_dragger_vertical"
-                  class="mCSB_dragger"
-                  style="position: absolute; min-height: 30px; height: 0px; top: 0px;"
-                >
-                  <div
-                    class="mCSB_dragger_bar"
-                    style="line-height: 30px;"
-                  ></div>
-                </div>
-                <div class="mCSB_draggerRail"></div>
-              </div>
             </div>
           </div>
         </div>
@@ -135,6 +104,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.sidebar-menu {
+  margin-top: 1rem;
+  padding-top: 3rem;
+}
 .icon {
   margin-right: 1rem;
 }
