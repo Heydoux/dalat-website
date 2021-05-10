@@ -22,13 +22,13 @@
                 <img
                   :src="article.data().image"
                   alt=""
-                  class="card-img-top h-auto w-100 img-fluid"
+                  class="card-img-top"
                 />
               </div>
             </div>
             <div class="col-card-8">
               <div class="card-body">
-                <div class="categoria card-title h5">
+                <div class="categoria card-title h5 text-uppercase">
                   {{ article.data().tags[0] }}
                 </div>
                 <h3 class="card-title" :id="'blog-' + type + 'title-' + index">
@@ -77,13 +77,13 @@
                 <img
                   :src="article.data().image"
                   alt=""
-                  class="card-img-top h-auto w-100 img-fluid"
+                  class="card-img-top"
                 />
               </div>
             </div>
             <div class="col-card-8">
               <div class="card-body">
-                <div class="categoria card-title h5">
+                <div class="categoria card-title h5 text-uppercase">
                   {{ article.data().tags[0] }}
                 </div>
                 <h3 class="card-title" :id="'blog-' + type + 'title-' + index">
@@ -156,6 +156,11 @@ export default {
   height: 100%;
   position: relative;
   overflow: hidden;
+
+  img{
+    height: 100%;
+    width: auto;
+  }
 }
 
 .imagen-horizontal {
@@ -206,6 +211,7 @@ h3 {
   color: $dark-grey;
   font-size: 14px;
   font-weight: 400;
+  min-height: 84px; // 4 * line-height
 }
 
 .tiempo {
@@ -213,5 +219,10 @@ h3 {
   font-weight: 600;
   text-align: end;
   margin: 0 auto;
+}
+@media only screen and (max-width: 768px) {
+  .bajada {
+    display: none;
+  }
 }
 </style>

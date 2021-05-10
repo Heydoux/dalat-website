@@ -87,11 +87,10 @@
         </ul>
         <h2 class="text-uppercase">Unite a Slack</h2>
         <p class="unite">
-          Podes ser parte de la comunidad solicitando unirte respondiendo al
-          formulario
+          Podes ser parte de la comunidad solicitando unirte a Slack.
         </p>
         <h2 class="text-uppercase">¿Querés escribirnos por mail?</h2>
-        <a href="mailto:dalat@gmail.com" class="mail">dalat@gmail.com</a>
+        <a href="mailto:dalat.accesibilidad@gmail.com" class="mail">dalat.accesibilidad@gmail.com</a>
       </div>
       <div class="col-lg-6">
         <form

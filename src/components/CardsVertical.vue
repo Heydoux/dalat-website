@@ -115,7 +115,13 @@ export default {
   height: 210px;
   position: relative;
   overflow: hidden;
+  
+  img{
+    width: 100%;
+    height: auto;
+  }
 }
+
 
 .categoria {
   color: $purple;
@@ -133,6 +139,7 @@ h3 {
   color: $dark-grey;
   font-size: 14px;
   font-weight: 400;
+  min-height: 84px; // 4 * line-height
 }
 
 .tiempo {

@@ -24,7 +24,7 @@
               <a classnamename="d-block" href="/contacto">Contacto</a>
             </li>
             <li class="d-inline-block">
-              <a classnamename="d-block" href="/unirse-a-la-comunidad">
+              <a classnamename="d-block" href="https://cutt.ly/HbTI7X5">
                 Unirme a la comunidad
               </a>
             </li>

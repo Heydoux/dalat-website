@@ -3,31 +3,32 @@
     <Navbar></Navbar>
     <main id="mainContent">
       <div class="row p-0">
-        <div class="d-flex routes offset-md-1 col-md-11">
-          <router-link to="/">Home</router-link>
-          <p class="px-2">></p>
-          <router-link to="/blog">Blog</router-link>
-          <p class="px-2">></p>
-          <p class="font-weight-bold">{{ this.article.title }}</p>
-        </div>
+        <nav class="d-flex routes offset-md-1 col-md-11 breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li>
+              <router-link to="/">Home</router-link>
+            </li>
+            <li>
+              <router-link to="/blog">Blog</router-link>
+            </li>
+            <li>
+              <span aria-current="page">{{ this.article.title }}</span>
+            </li>
+          </ol>          
+        </nav>
         <div class="col-md-2 text-center position-relative">
-          <p id="reading-time">
-            Tiempo de lectura:<br />{{ this.article.readingTime }} Minutos
-          </p>
-          <p id="reading-time-bottom" class="opaque">
-            Tiempo de lectura:<br />{{ this.article.readingTime }} Minutos
-          </p>
         </div>
         <div class="offset-md-1 blog-content col-md-6">
+          <h1 class="text-left">{{ this.article.title }}</h1>
+          <p id="reading-time">
+            Tiempo de lectura: {{ this.article.readingTime }} Minutos
+          </p>
           <div class="text-center my-5">
             <img :src="article.image" alt="" width="100%" />
           </div>
-          <h1 class="text-left">{{ this.article.title }}</h1>
           <p class="text-left font-weight-bold">{{ this.article.excerpt }}</p>
           <div id="content" class="mb-5"></div>
-        </div>
-        <div class="col-md-3">
-          <div class="mx-auto d-flex social-share">
+          <div class="d-flex social-share">
             <div class="fb-share share-div">
               <a
                 target="_blank"
@@ -74,6 +75,9 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="col-md-3">
+
         </div>
       </div>
       <div class="row p-0">
@@ -167,6 +171,7 @@ export default {
   mounted() {
     window.addEventListener("scroll", () => {
       if (!this.$isMobile()) {
+        /*
         let rt_fixed = $("#reading-time");
         let rt_absolute = $("#reading-time-bottom");
         let rt_absolute_top = rt_absolute.offset().top;
@@ -178,6 +183,7 @@ export default {
           rt_absolute.addClass("opaque");
           rt_fixed.removeClass("opaque");
         }
+        */
       }
     });
   }
@@ -185,7 +191,39 @@ export default {
 </script>
 
 <style scoped lang="scss">
+nav.breadcrumb {
+  padding: 0.8em 1em;
+  background: none;
+}
+
+nav.breadcrumb ol {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+nav.breadcrumb li {
+  display: inline;
+}
+
+nav.breadcrumb li + li::before {
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 0.25em;
+  height: 0.8em;
+  content: '>';
+}
+
+nav.breadcrumb [aria-current="page"] {
+  color: #0a3055;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .routes {
+  ol {
+    list-style: none;
+  }
   a {
     text-decoration: underline;
     color: $blue;
@@ -206,11 +244,6 @@ h3 {
 }
 
 #reading-time {
-  position: fixed;
-  left: 4.167vw;
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: LEFT;
   font-weight: bold;
   color: grey;
   letter-spacing: 0.06rem;
@@ -239,6 +272,7 @@ h3 {
   img {
     height: auto;
     width: auto;
+    max-width: 100%;
   }
 }
 
@@ -247,7 +281,8 @@ p.ql-align-center {
 }
 
 .social-share {
-  position: fixed;
+  justify-content: flex-end;
+
 
   .copy-clipboard {
     .copy-popup {
@@ -294,6 +329,12 @@ p.ql-align-center {
       width: 90%;
       margin: auto;
 
+      .routes{
+        p.px-2 {
+          font-size: 16px;
+          transform: scale(1);
+        }
+      } 
       .col-md-2 {
         display: none;
       }
