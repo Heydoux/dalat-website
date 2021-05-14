@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO Ajouter à cardHorizontal, cardVertical et Recomendaciones les aria-label avec matching sur les id pour titre, description et temps de lecture incrémente avec type de card nécessaire à passer en paramètre -->
   <div v-if="this.size === 'half'" class="row" :key="componentKey">
     <div
       v-for="(article, index) in articles"
@@ -19,11 +18,7 @@
           <div class="row ">
             <div class="col-card-4">
               <div class="image-wrapper-horiz">
-                <img
-                  :src="article.data().image"
-                  alt=""
-                  class="card-img-top"
-                />
+                <img :src="article.data().image" alt="" class="card-img-top" />
               </div>
             </div>
             <div class="col-card-8">
@@ -31,9 +26,14 @@
                 <div class="categoria card-title h5 text-uppercase">
                   {{ article.data().tags[0] }}
                 </div>
-                <h3 class="card-title" :id="'blog-' + type + 'title-' + index">
-                  {{ article.data().title }}
-                </h3>
+                <div class="card-subtitle d-flex align-items-center">
+                  <h3
+                    class="card-title"
+                    :id="'blog-' + type + 'title-' + index"
+                  >
+                    {{ article.data().title }}
+                  </h3>
+                </div>
                 <p
                   class="card-text bajada"
                   :id="'blog-' + type + 'desc-' + index"
@@ -74,11 +74,7 @@
           <div class="row ">
             <div class="col-card-4">
               <div class="image-wrapper-horiz">
-                <img
-                  :src="article.data().image"
-                  alt=""
-                  class="card-img-top"
-                />
+                <img :src="article.data().image" alt="" class="card-img-top" />
               </div>
             </div>
             <div class="col-card-8">
@@ -86,9 +82,14 @@
                 <div class="categoria card-title h5 text-uppercase">
                   {{ article.data().tags[0] }}
                 </div>
-                <h3 class="card-title" :id="'blog-' + type + 'title-' + index">
-                  {{ article.data().title }}
-                </h3>
+                <div class="card-subtitle d-flex align-items-center">
+                  <h3
+                    class="card-title"
+                    :id="'blog-' + type + 'title-' + index"
+                  >
+                    {{ article.data().title }}
+                  </h3>
+                </div>
                 <p
                   class="card-text bajada"
                   :id="'blog-' + type + 'desc-' + index"
@@ -157,7 +158,7 @@ export default {
   position: relative;
   overflow: hidden;
 
-  img{
+  img {
     height: 100%;
     width: auto;
   }
@@ -179,17 +180,22 @@ export default {
   text-align: end;
   margin: 0 auto;
 }
-
+a:hover {
+  text-decoration: none;
+  h3 {
+    text-decoration: underline;
+  }
+}
 .col-card-4 {
-  flex: 0 0 33.33333%;
-  max-width: 33.33333%;
+  flex: 0 0 40%;
+  max-width: 40%;
   padding-right: 15px;
   padding-left: 15px;
 }
 
 .col-card-8 {
-  flex: 0 0 66.66666%;
-  max-width: 66.66666%;
+  flex: 0 0 60%;
+  max-width: 60%;
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -205,13 +211,15 @@ h3 {
   color: $black;
   font-size: 18px;
   font-weight: 400;
+  margin: 0 !important;
 }
 
 .bajada {
   color: $dark-grey;
   font-size: 14px;
   font-weight: 400;
-  min-height: 84px; // 4 * line-height
+  min-height: 105px; // 5 * line-height
+  margin-top: 12px;
 }
 
 .tiempo {
@@ -220,9 +228,18 @@ h3 {
   text-align: end;
   margin: 0 auto;
 }
+
 @media only screen and (max-width: 768px) {
   .bajada {
     display: none;
+  }
+
+  .card-body {
+    padding: 0.75rem 0.75rem 1.25rem;
+  }
+
+  p.tiempo {
+    margin-top: 0.5rem;
   }
 }
 </style>

@@ -9,21 +9,21 @@
         />
       </div>
       <div class="row no-gutters align-items-center">
-        <div class="col footer-slogan text-sm-center">
+        <div class="col footer-slogan">
           Somos un grupos de profesionales especializados en accesibilidad.
         </div>
         <div class="col footer-nav text-sm-cente mt-4 mt-md-0">
-          <ul class="list-unstyled mb-0" role="list">
-            <li class="d-inline-block">
+          <ul class="list-unstyled mb-0 text-md-right" role="list">
+            <li class="d-inline-block mb-3">
               <a classnamename="d-block" href="/blog">Blog</a>
             </li>
-            <li class="d-inline-block">
+            <li class="d-inline-block mb-3">
               <a classnamename="d-block" href="/sobre-dalat">Sobre Nosotros</a>
             </li>
-            <li class="d-inline-block">
+            <li class="d-inline-block mb-3">
               <a classnamename="d-block" href="/contacto">Contacto</a>
             </li>
-            <li class="d-inline-block">
+            <li class="d-inline-block mb-3">
               <a classnamename="d-block" href="https://cutt.ly/HbTI7X5">
                 Unirme a la comunidad
               </a>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="footer-copy text-center">
-      DALAT - Desarrollo Accessible Latinoamericano
+      DALAT Desarrollo Accessible Latinoamericano
       <span aria-hidden="true" class="ml-2">&lt;3</span>
     </div>
   </footer>
@@ -53,7 +53,7 @@ footer {
 
   .footer-wrapper {
     padding-top: 45px;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
 
     @include media-breakpoint-down(sm) {
       padding-top: 35px;
@@ -65,6 +65,7 @@ footer {
     color: $white;
     padding: 5px 10px;
     border: 2px dashed transparent;
+    text-decoration: underline;
 
     &:hover,
     &:focus {
@@ -97,12 +98,18 @@ footer {
 
 .footer-copy {
   padding: 15px 0;
-  background-color: #0e0e0e;
+  background-color: #ffffff;
+  color: #0a3055;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {
   .footer-slogan {
     padding-left: 10px !important;
+  }
+
+  .footer-copy {
+    font-size: 12px;
   }
 }
 </style>

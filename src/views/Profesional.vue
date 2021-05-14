@@ -90,12 +90,22 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="profesional_url">Profesional url perfil</label>
+                  <label for="profesional_url">Profesion url perfil</label>
                   <input
                     id="profesional_url"
                     type="url"
                     placeholder="URL profesional link"
                     v-model="profesional.link"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="titulo">Titulo profesion</label>
+                  <input
+                    id="titulo"
+                    type="url"
+                    placeholder="Diseño UX/UI"
+                    v-model="profesional.titulo"
                     class="form-control"
                   />
                 </div>
@@ -162,7 +172,8 @@ export default {
         nombre: null,
         appellido: null,
         photoUrl: null,
-        link: null
+        link: null,
+        titulo: null
       },
       modal: null,
       activeItem: null
@@ -192,6 +203,7 @@ export default {
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
               this.profesional.photoUrl = downloadURL;
+              console.log("File available at: ", downloadURL);
             });
           }
         );
@@ -202,7 +214,8 @@ export default {
         nombre: "",
         appellido: "",
         photoUrl: "",
-        link: ""
+        link: "",
+        titulo: ""
       };
     },
     addNew() {
@@ -211,7 +224,9 @@ export default {
       $("#profesional").modal("show");
     },
     updateProfesional() {
-      this.$firestore.profesionales.doc(this.activeItem).update(this.profesional);
+      this.$firestore.profesionales
+        .doc(this.activeItem)
+        .update(this.profesional);
       Toast.fire({
         type: "success",
         title: "Updated successfully"

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap");
 
 body {
   font-family: "Poppins", sans-serif;
@@ -7,10 +7,18 @@ body {
 
 .banner {
   img {
-    height: auto;
+    max-width: 100%;
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .banner {
+    img {
+      width: calc(100vw - 60px);
+      height: calc((100vw - 60px) / 2.2879);
+    }
+  }
+}
 a {
   color: $blue;
   outline: 0;
@@ -50,6 +58,9 @@ h3 {
   font-weight: 400;
   margin-top: 1.016vh;
   line-height: 21px;
+}
+
+.card-subtitle {
   min-height: 63px;
 }
 

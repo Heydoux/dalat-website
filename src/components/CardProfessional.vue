@@ -1,14 +1,50 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="text-center">
-        <div class="col">
-          <img
-            src="@/assets/images/cardvertical.png"
-            class="pro img-thumbnail"
-            alt=""
-          />
-          <h3>Nombre Profesional</h3>
+  <div class="d-flex">
+    <div v-for="(profesional, index) in profesionales" v-bind:key="index">
+      <div class="row">
+        <div class="text-center">
+          <a
+            :href="profesional.data().link"
+            class=""
+            target="_blank"
+            :aria-labelledby="
+              'profesional-' +
+                profesional.data().nombre +
+                profesional.data().appellido +
+                '--new-window'
+            "
+            :aria-describedby="
+              'profesional-titulo' + profesional.data().titulo + '--new-window'
+            "
+          >
+            <div class="col">
+              <img
+                :src="profesional.data().photoUrl"
+                class="pro img-thumbnail"
+                alt=""
+              />
+              <h3
+                :id="
+                  'profesional-' +
+                    profesional.data().nombre +
+                    profesional.data().appellido +
+                    '--new-window'
+                "
+              >
+                {{ profesional.data().nombre }}
+                {{ profesional.data().appellido }}
+              </h3>
+              <p
+                :id="
+                  'profesional-titulo' +
+                    profesional.data().titulo +
+                    '--new-window'
+                "
+              >
+                {{ profesional.data().titulo }}
+              </p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -16,9 +52,24 @@
 </template>
 
 <script>
+import { db } from "../firebase";
 export default {
   name: "CardProfessional",
-  props: {}
+  props: {},
+  data() {
+    return {
+      profesionales: []
+    };
+  },
+  created() {
+    db.collection("profesionales")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.profesionales.push(doc);
+        });
+      });
+  }
 };
 </script>
 
@@ -34,5 +85,13 @@ export default {
   border-radius: 50%;
   width: 7.813vw;
   height: 7.813vw;
+}
+
+@media only screen and (max-width: 768px) {
+  .pro {
+    border-radius: 50%;
+    width: 7.813vw;
+    height: 7.813vw;
+  }
 }
 </style>

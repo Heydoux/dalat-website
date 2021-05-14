@@ -4,7 +4,7 @@
       <div
         v-for="(article, index) in articles"
         v-bind:key="index"
-        class="mb-3 col-md-4"
+        class="mb-3 col-md-4 align-items-stretch"
       >
         <!--<a class="d-inline-block" href="/blog">-->
         <router-link
@@ -31,7 +31,7 @@
                 {{ article.data().tags[0] }}
               </div>
               <div
-                class="card-subtitle h6"
+                class="card-subtitle h6 d-flex align-items-center"
                 :id="'blog-' + type + 'title-' + index"
               >
                 <h3>{{ article.data().title }}</h3>
@@ -115,13 +115,19 @@ export default {
   height: 210px;
   position: relative;
   overflow: hidden;
-  
-  img{
+
+  img {
     width: 100%;
     height: auto;
   }
 }
 
+a:hover {
+  text-decoration: none;
+  h3 {
+    text-decoration: underline;
+  }
+}
 
 .categoria {
   color: $purple;
@@ -133,9 +139,11 @@ h3 {
   color: $black;
   font-size: 18px;
   font-weight: 400;
+  margin: 0;
 }
 
 .bajada {
+  margin-top: 0.5rem;
   color: $dark-grey;
   font-size: 14px;
   font-weight: 400;

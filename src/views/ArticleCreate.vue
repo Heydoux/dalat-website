@@ -144,7 +144,14 @@
 
 <script>
 import { fb, db } from "../firebase";
-import { VueEditor } from "vue2-editor";
+import { VueEditor, Quill } from "vue2-editor";
+import { Video } from "./../assets/js/quill-video-resize.js";
+
+Quill.register({ "formats/video": Video });
+
+/*import VideoResize from "quill-video-resize-module";
+
+Quill.register("modules/VideoResize", VideoResize);*/
 
 export default {
   name: "ArticleCreate",
@@ -170,6 +177,11 @@ export default {
       activeItem: null,
       tag: null
     };
+  },
+  editorSettings: {
+    modules: {
+      Video: {}
+    }
   },
   methods: {
     saveData() {

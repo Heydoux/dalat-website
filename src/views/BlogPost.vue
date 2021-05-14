@@ -3,7 +3,10 @@
     <Navbar></Navbar>
     <main id="mainContent">
       <div class="row p-0">
-        <nav class="d-flex routes offset-md-1 col-md-11 breadcrumb" aria-label="Breadcrumb">
+        <nav
+          class="d-flex routes offset-md-1 col-md-11 breadcrumb"
+          aria-label="Breadcrumb"
+        >
           <ol>
             <li>
               <router-link to="/">Home</router-link>
@@ -14,19 +17,23 @@
             <li>
               <span aria-current="page">{{ this.article.title }}</span>
             </li>
-          </ol>          
+          </ol>
         </nav>
-        <div class="col-md-2 text-center position-relative">
-        </div>
+        <div class="col-md-2 text-center position-relative"></div>
         <div class="offset-md-1 blog-content col-md-6">
           <h1 class="text-left">{{ this.article.title }}</h1>
           <p id="reading-time">
             Tiempo de lectura: {{ this.article.readingTime }} Minutos
           </p>
-          <div class="text-center my-5">
-            <img :src="article.image" alt="" width="100%" />
+          <p
+            v-if="this.article.excerpt != null"
+            class="text-left font-weight-bold"
+          >
+            {{ this.article.excerpt }}
+          </p>
+          <div v-if="this.article.image != null" class="text-center my-5">
+            <img :src="article.image" alt="" class="w-100" />
           </div>
-          <p class="text-left font-weight-bold">{{ this.article.excerpt }}</p>
           <div id="content" class="mb-5"></div>
           <div class="d-flex social-share">
             <div class="fb-share share-div">
@@ -76,9 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-
-        </div>
+        <div class="col-md-3"></div>
       </div>
       <div class="row p-0">
         <div class="offset-md-1 col-md-10">
@@ -211,7 +216,7 @@ nav.breadcrumb li + li::before {
   font-size: 16px;
   margin: 0 0.25em;
   height: 0.8em;
-  content: '>';
+  content: ">";
 }
 
 nav.breadcrumb [aria-current="page"] {
@@ -283,7 +288,6 @@ p.ql-align-center {
 .social-share {
   justify-content: flex-end;
 
-
   .copy-clipboard {
     .copy-popup {
       position: absolute;
@@ -329,12 +333,12 @@ p.ql-align-center {
       width: 90%;
       margin: auto;
 
-      .routes{
+      .routes {
         p.px-2 {
           font-size: 16px;
           transform: scale(1);
         }
-      } 
+      }
       .col-md-2 {
         display: none;
       }

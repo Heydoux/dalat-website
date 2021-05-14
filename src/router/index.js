@@ -10,6 +10,7 @@ import Dashboard from "../views/Dashboard.vue";
 import ArticleList from "../views/ArticleList.vue";
 import ArticleCreate from "../views/ArticleCreate.vue";
 import ArticleModify from "../views/ArticleModify.vue";
+import Profesional from "../views/Profesional.vue";
 import Login from "../views/Login.vue";
 import { fb } from "../firebase";
 
@@ -52,6 +53,11 @@ const routes = [
         name: "articlemodify",
         component: ArticleModify,
         props: true
+      },
+      {
+        path: "profesionales",
+        name: "profesionales",
+        component: Profesional
       }
     ]
   },

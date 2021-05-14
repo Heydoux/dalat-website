@@ -5,6 +5,7 @@ import jQuery from "jquery";
 import "popper.js";
 import "bootstrap";
 import "./assets/scss/app.scss";
+import "./assets/js/dalat.js";
 import { fb } from "./firebase";
 import VueFirestore from "vue-firestore";
 import LoadScript from "vue-plugin-load-script";
@@ -12,6 +13,7 @@ import VueMeta from "vue-meta";
 import Swal from "sweetalert2";
 import VueSocialSharing from "vue-social-sharing";
 import VueMobileDetection from "vue-mobile-detection";
+import Quill from "vue2-editor";
 
 window.$ = window.jQuery = jQuery;
 window.Swal = Swal;
@@ -44,6 +46,7 @@ Vue.use(VueFirestore, {
 Vue.use(VueMeta);
 Vue.use(VueSocialSharing);
 Vue.use(VueMobileDetection);
+Vue.use(Quill);
 
 let app = "";
 

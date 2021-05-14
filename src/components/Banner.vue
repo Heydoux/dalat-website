@@ -1,10 +1,6 @@
 <template>
   <div class="banner undefined container">
-    <img
-      class="mw-100"
-      src="@/assets/images/banner/grupodepersonas.png"
-      alt=""
-    />
+    <img src="@/assets/images/banner/grupodepersonas-1.png" alt="" />
   </div>
 </template>
 

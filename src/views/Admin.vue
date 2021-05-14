@@ -47,7 +47,7 @@
                       <span class="menu-text">Lista de articulos</span>
                     </router-link>
                   </li>
-                  <!--<li class="sidebar-dropdown">
+                  <li class="sidebar-dropdown">
                     <router-link to="/admin/profesionales">
                       <img
                         src="@/assets/images/admin/add-pro.svg"
@@ -56,7 +56,7 @@
                       />
                       <span class="menu-text">Profesionales</span>
                     </router-link>
-                  </li>-->
+                  </li>
                 </ul>
               </div>
               <!-- sidebar-menu  -->
