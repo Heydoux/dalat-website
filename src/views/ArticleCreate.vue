@@ -146,6 +146,7 @@
 import { fb, db } from "../firebase";
 import { VueEditor, Quill } from "vue2-editor";
 import { Video } from "./../assets/js/quill-video-resize.js";
+import "./../assets/js/quill-alt-image.js";
 
 Quill.register({ "formats/video": Video });
 

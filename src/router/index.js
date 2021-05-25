@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+//import Prox from "../views/Prox.vue";
 import Admin from "../views/Admin.vue";
 import SobreDalat from "../views/SobreDalat.vue";
 import Blog from "../views/Blog.vue";
@@ -22,6 +23,11 @@ const routes = [
     name: "Home",
     component: Home
   },
+  /*{
+    path: "/",
+    name: "Prox",
+    component: Prox
+  },*/
   {
     path: "/login",
     name: "login",

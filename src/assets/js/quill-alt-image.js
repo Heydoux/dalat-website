@@ -1,7 +1,55 @@
 import { Quill } from "vue2-editor";
 const BlockEmbed = Quill.import("blots/block/embed");
+const ImageBlot = Quill.import("formats/image");
 const Parchment = Quill.import("parchment");
+var altOpen = false;
 
+if (!altOpen) {
+  document.addEventListener("click", e => {
+    const img = Parchment.find(e.target);
+    if (img instanceof ImageBlot) {
+      img.format("alt", "ImageAlt");
+      var popup = document.createElement("div");
+      popup.id = "popup";
+      var popTxt = document.createElement("p");
+      var node = document.createTextNode("Alt:");
+      popTxt.appendChild(node);
+      var popInpt = document.createElement("input");
+      popInpt.setAttribute("type", "text");
+      var popBtn = document.createElement("button");
+      popBtn.id = "saveAlt";
+      popBtn.innerHTML = "Save";
+      document.body.appendChild(popup);
+      popup.appendChild(popTxt);
+      popup.appendChild(popInpt);
+      popup.appendChild(popBtn);
+      altOpen = true;
+      popBtn.addEventListener("click", function() {
+        console.log("button clicked");
+        var elem = document.getElementById("popup");
+        elem.parentNode.removeChild(elem);
+        altOpen = false;
+      });
+    }
+  });  
+}
+
+
+class ImagePopUpAlt {
+
+}
+class AltImage extends BlockEmbed {
+  static create (src) {
+    let node = super.create();
+    node.builder = new ImagePopUpAlt();
+    //let img = document.createElement("img");
+    console.log(src);
+  }
+}
+
+export { AltImage };
+
+/*
 class CustomImage extends BlockEmbed {
   static create (value) {
     let node = super.create()
@@ -44,7 +92,7 @@ let blot = Parchment.find(this.currentImg)
 // blot contain all what you need, all properties
 // and you can change them in this way:
 blot.format('alt', e.target.value)
-
+*/
 
 /**
  * https://stackoverflow.com/questions/52792587/quilljs-customize-attr-alt
