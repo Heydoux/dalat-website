@@ -21,7 +21,30 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      title: "Dalat Comunidad - Homepage",
+      metaTags: [
+        {
+          name: "description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:title",
+          content: "Dalat Comunidad - Homepage"
+        },
+        {
+          property: "og:description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:type",
+          content: "Website"
+        }
+      ]
+    }
   },
   /*{
     path: "/",
@@ -70,22 +93,94 @@ const routes = [
   {
     path: "/sobre-dalat",
     name: "About",
-    component: SobreDalat
+    component: SobreDalat,
+    meta: {
+      title: "Dalat Comunidad - Sobre Dalat",
+      metaTags: [
+        {
+          name: "description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:title",
+          content: "Dalat Comunidad - Sobre Dalat"
+        },
+        {
+          property: "og:description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:type",
+          content: "Website"
+        }
+      ]
+    }
   },
   {
     path: "/contacto",
     name: "Contact",
-    component: Contacto
+    component: Contacto,
+    meta: {
+      title: "Dalat Comunidad - Contacto",
+      metaTags: [
+        {
+          name: "description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:title",
+          content: "Dalat Comunidad - Contacto"
+        },
+        {
+          property: "og:description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:type",
+          content: "Website"
+        }
+      ]
+    }
   },
   {
     path: "/blog",
     name: "Blog",
-    component: Blog
+    component: Blog,
+    meta: {
+      title: "Dalat Comunidad - Dalat Blog",
+      metaTags: [
+        {
+          name: "description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:title",
+          content: "Dalat Comunidad - Dalat Blog"
+        },
+        {
+          property: "og:description",
+          content:
+            "Somos profesionales de Accesibilidad que buscan generar y divulgar conocimiento sobre la materia e impulsar a personas y comunidades latinoamericanas."
+        },
+        {
+          property: "og:type",
+          content: "Website"
+        }
+      ]
+    }
   },
   {
     path: "/blog/:slug",
     name: "post",
-    component: Post
+    component: Post,
+    meta: {
+      title: "Dalat Comunidad"
+    }
   }
 ];
 
@@ -99,11 +194,55 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
   const currentUser = fb.auth().currentUser;
 
+  const nearestWithTitle = to.matched
+    .slice()
+    .reverse()
+    .find(r => r.meta && r.meta.title);
+  const nearestWithMeta = to.matched
+    .slice()
+    .reverse()
+    .find(r => r.meta && r.meta.metaTags);
+  const previousNearestWithMeta = from.matched
+    .slice()
+    .reverse()
+    .find(r => r.meta && r.meta.metaTags);
+
   if (requiresAuth && !currentUser) {
     next("/login");
   } else if (requiresAuth && currentUser) {
     next();
   } else {
+    // If a route with a title was found, set the document (page) title to that value.
+    if (nearestWithTitle) {
+      document.title = nearestWithTitle.meta.title;
+    } else if (previousNearestWithMeta) {
+      document.title = previousNearestWithMeta.meta.title;
+    }
+    // Remove any stale meta tags from the document using the key attribute we set below.
+    Array.from(
+      document.querySelectorAll("[data-vue-router-controlled]")
+    ).map(el => el.parentNode.removeChild(el));
+
+    // Skip rendering meta tags if there are none.
+    if (!nearestWithMeta) return next();
+
+    // Turn the meta tag definitions into actual elements in the head.
+    nearestWithMeta.meta.metaTags
+      .map(tagDef => {
+        const tag = document.createElement("meta");
+
+        Object.keys(tagDef).forEach(key => {
+          tag.setAttribute(key, tagDef[key]);
+        });
+
+        // We use this to track which meta tags we create so we don't interfere with other ones.
+        tag.setAttribute("data-vue-router-controlled", "");
+
+        return tag;
+      })
+      // Add the meta tags to the document head.
+      .forEach(tag => document.head.appendChild(tag));
+
     next();
   }
 });

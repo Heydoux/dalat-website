@@ -38,7 +38,6 @@ Vue.loadScript("https://apis.google.com/js/platform.js")
   .catch(() => {
     // Failed to fetch script
   });
-Vue.use(VueFirestore);
 Vue.use(VueFirestore, {
   key: "id",
   enumerable: true

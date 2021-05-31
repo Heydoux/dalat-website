@@ -18,7 +18,11 @@
           <div class="row ">
             <div class="col-card-4">
               <div class="image-wrapper-horiz">
-                <img :src="article.data().image" alt="" class="card-img-top" />
+                <img
+                  :src="article.data().image"
+                  :alt="article.data().altthumbnail"
+                  class="card-img-top"
+                />
               </div>
             </div>
             <div class="col-card-8">
@@ -74,7 +78,11 @@
           <div class="row ">
             <div class="col-card-4">
               <div class="image-wrapper-horiz">
-                <img :src="article.data().image" alt="" class="card-img-top" />
+                <img
+                  :src="article.data().image"
+                  :alt="article.data().altthumbnail"
+                  class="card-img-top"
+                />
               </div>
             </div>
             <div class="col-card-8">

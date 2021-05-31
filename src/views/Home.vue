@@ -13,7 +13,7 @@
           <p class="mb-5 subtitle">
             Comunidad de profesionales en accesibilidad e interesados en la
             materia en Latinoamerica.
-            <br>
+            <br />
             Podés encontrarnos en las redes
           </p>
         </div>

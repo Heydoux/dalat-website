@@ -60,8 +60,11 @@
                 placeholder="Contraseña"
               />
             </div>
-            <div class="form-group">
+            <div class="form-group d-flex justify-content-between">
               <button class="btn btn-primary" @click="login">Continuar</button>
+              <button class="btn btn-danger" @click="resetPassword">
+                Contraseña olvidada !
+              </button>
             </div>
           </div>
           <div
@@ -175,6 +178,34 @@ export default {
           }
           console.log(error);
         });
+    },
+    resetPassword() {
+      const auth = fb.auth();
+      if (this.email === null) {
+        Swal.fire({
+          icon: "warning",
+          title: "E-mail",
+          text: "Necesitas ingresar tu E-mail primero !"
+        });
+      } else {
+        var emailAddress = this.email;
+        auth
+          .sendPasswordResetEmail(emailAddress)
+          .then(function() {
+            Swal.fire({
+              icon: "success",
+              title: "Contraseña reiniciada",
+              text:
+                "Vas a recibir un E-mail con un link para reiniciar tu contraseña !"
+            });
+          })
+          .catch(function() {
+            Swal.fire({
+              icon: "error",
+              text: "No se pudo reiniciar la contraseña contacta el webmaster"
+            });
+          });
+      }
     }
   }
 };

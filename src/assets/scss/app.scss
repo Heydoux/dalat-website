@@ -26,4 +26,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgb(84, 84, 84);
+
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .btn-primary {
+    background-color: #0a3055;
+    border-color: #0a3055;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }

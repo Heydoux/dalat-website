@@ -53,6 +53,7 @@
               id="articleTag"
               type="text"
               @keyup.188="addTag"
+              @keyup.13="addTag"
               placeholder="Articulo etiquetas"
               v-model="tag"
               class="form-control"
@@ -81,16 +82,31 @@
                 class="form-control"
                 required
               />
-              <button class="btn btn-primary">Charger une image</button>
+              <button class="btn btn-primary">Cargar una imagen</button>
             </div>
             <div class="img-wrapp mt-3">
               <img :src="article.image" alt="" width="100%" />
+              <input
+                id="articleThubnailAlt"
+                type="text"
+                placeholder="Miniatura alt texto"
+                v-model="article.altthumbnail"
+                class="form-control"
+              />
             </div>
           </div>
           <div class="form-group">
             <label for="articleExcerpt" class="font-weight-bold text-uppercase">
               Extracto del articulo
             </label>
+            <p>
+              Total Restante:
+              <span
+                v-bind:class="{ 'text-danger font-weight-bold': generatErr }"
+              >
+                {{ totalRemainCount }}
+              </span>
+            </p>
             <textarea
               id="articleExcerpt"
               type="text"
@@ -98,6 +114,7 @@
               v-model="article.excerpt"
               class="form-control"
               rows="10"
+              v-on:keyup="liveCountDown"
             />
           </div>
         </div>
@@ -173,10 +190,14 @@ export default {
         shared: 0,
         excerpt: null,
         readingTime: 0,
-        urlTitle: null
+        urlTitle: null,
+        altthumbnail: null
       },
       activeItem: null,
-      tag: null
+      tag: null,
+      limitMaxCount: 140,
+      totalRemainCount: 140,
+      generatErr: false
     };
   },
   editorSettings: {
@@ -189,29 +210,49 @@ export default {
       this.article.date = new Date();
       const paragraphs = document.querySelectorAll(".ql-editor p");
       var count = 0;
-      for (var i = 0; i < paragraphs.length; i++) {
-        // Split the innerHtml of the current paragraph to count the words.
-        count += paragraphs[i].innerHTML.split(" ").length;
-      }
-      var readingTime = Math.round(count / 270);
-      if (readingTime < 1) {
-        this.article.readingTime = 1;
-      } else {
-        this.article.readingTime = readingTime;
-      }
-      this.article.urlTitle = this.article.title
-        .replace(" ", "-")
-        .toLowerCase();
-      db.collection("articles")
-        .add(this.article)
-        .then(docRef => {
-          console.log("Document written with ID: ", docRef.id);
-          $("#successCreate").modal("show");
-          this.reset();
-        })
-        .catch(function(error) {
-          console.error("Error adding document in database: ", error);
+      if (this.article.tags.length === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Faltan etiquetas"
         });
+      } else if (this.article.title === null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El articulo necesita un titulo"
+        });
+      } else if (this.article.image === null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El articulo necesita una miniatura"
+        });
+      } else {
+        for (var i = 0; i < paragraphs.length; i++) {
+          // Split the innerHtml of the current paragraph to count the words.
+          count += paragraphs[i].innerHTML.split(" ").length;
+        }
+        var readingTime = Math.round(count / 270);
+        if (readingTime < 1) {
+          this.article.readingTime = 1;
+        } else {
+          this.article.readingTime = readingTime;
+        }
+        this.article.urlTitle = this.article.title
+          .replace(" ", "-")
+          .toLowerCase();
+        db.collection("articles")
+          .add(this.article)
+          .then(docRef => {
+            console.log("Document written with ID: ", docRef.id);
+            $("#successCreate").modal("show");
+            this.reset();
+          })
+          .catch(function(error) {
+            console.error("Error adding document in database: ", error);
+          });
+      }
     },
     reset() {
       Object.assign(this.$data, this.$options.data.apply(this));
@@ -245,6 +286,10 @@ export default {
           });
         }
       );
+    },
+    liveCountDown() {
+      this.totalRemainCount = this.limitMaxCount - this.article.excerpt.length;
+      this.generatErr = this.totalRemainCount > 0 ? false : true;
     }
   }
 };

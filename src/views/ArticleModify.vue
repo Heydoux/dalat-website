@@ -50,12 +50,13 @@
           </div>
           <div class="form-group mt-4">
             <label for="articleTag" class="font-weight-bold text-uppercase">
-              Etiqueta (Terminar con coma)
+              Etiqueta (Terminar con coma o enter)
             </label>
             <input
               id="articleTag"
               type="text"
               @keyup.188="addTag"
+              @keyup.13="addTag"
               placeholder="Articulo etiquetas"
               v-model="tag"
               class="form-control"
@@ -88,12 +89,27 @@
             </div>
             <div class="img-wrapp mt-3">
               <img :src="article.image" alt="" width="100%" />
+              <input
+                id="articleThubnailAlt"
+                type="text"
+                placeholder="Miniatura alt texto"
+                v-model="article.altthumbnail"
+                class="form-control"
+              />
             </div>
           </div>
           <div class="form-group">
             <label for="articleExcerpt" class="font-weight-bold text-uppercase">
               Extracto del articulo
             </label>
+            <p>
+              Total Restante:
+              <span
+                v-bind:class="{ 'text-danger font-weight-bold': generatErr }"
+              >
+                {{ totalRemainCount }}
+              </span>
+            </p>
             <textarea
               id="articleExcerpt"
               type="text"
@@ -101,6 +117,7 @@
               v-model="article.excerpt"
               class="form-control"
               rows="10"
+              v-on:keyup="liveCountDown"
             />
           </div>
         </div>
@@ -147,7 +164,11 @@
 
 <script>
 import { fb, db } from "../firebase";
-import { VueEditor } from "vue2-editor";
+import { VueEditor, Quill } from "vue2-editor";
+import { Video } from "./../assets/js/quill-video-resize.js";
+import "./../assets/js/quill-alt-image.js";
+
+Quill.register({ "formats/video": Video });
 
 export default {
   name: "ArticleCreate",
@@ -168,12 +189,22 @@ export default {
         shared: 0,
         excerpt: null,
         readingTime: 0,
-        urlTitle: null
+        urlTitle: null,
+        altthumbnail: null
       },
       activeItem: null,
       activeImg: null,
-      tag: null
+      tag: null,
+      limitMaxCount: 140,
+      totalRemainCount: 140,
+      generatErr: false,
+      saveExcerpt: null
     };
+  },
+  editorSettings: {
+    modules: {
+      Video: {}
+    }
   },
   methods: {
     updateData() {
@@ -189,6 +220,7 @@ export default {
       } else {
         this.article.readingTime = readingTime;
       }
+      this.article.excerpt = this.saveExcerpt;
       this.article.urlTitle = this.article.title
         .replace(" ", "-")
         .toLowerCase();
@@ -230,30 +262,52 @@ export default {
       Object.assign(this.$data, this.$options.data.apply(this));
     },
     deleteArticle(doc) {
-      if (confirm("Are you sure ? ")) {
-        let image = fb.storage().refFromURL(this.activeImg);
-        image
-          .delete()
-          .then(() => {
-            console.log("image deleted");
-          })
-          .catch(function(error) {
-            console.log("An error occured: ", error);
-          });
-        db.collection("articles")
-          .doc(doc.id)
-          .delete()
-          .then(function() {
-            console.log("Document successfully deleted!");
-          })
-          .catch(function(error) {
-            console.error("Error removing document: ", error);
-          });
-        this.$router.push({ name: "articlecreate" });
-        console.log("Article delete !");
-      } else {
-        console.log("Nothing happen !");
-      }
+      Swal.fire({
+        title: "Estas seguro?",
+        text: "No podrás volver atrás!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, bórralo!"
+      }).then(result => {
+        if (result.value) {
+          if (this.activeImg != null) {
+            let image = fb.storage().refFromURL(this.activeImg);
+            image
+              .delete()
+              .then(() => {
+                console.log("image deleted");
+              })
+              .catch(function(error) {
+                console.log("An error occured: ", error);
+              });
+          }
+          db.collection("articles")
+            .doc(doc.id)
+            .delete()
+            .then(function() {
+              console.log("Document successfully deleted!");
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Borrado exitosamente",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              this.$router.push({ name: "articlelist" });
+            })
+            .catch(function(error) {
+              console.error("Error removing document: ", error);
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Error borrando el documento"
+              });
+              this.$router.push({ name: "articlelist" });
+            });
+        }
+      });
     },
     addTag() {
       this.tag = this.tag.replace(",", "");
@@ -286,6 +340,15 @@ export default {
           });
         }
       );
+    },
+    liveCountDown() {
+      this.totalRemainCount = this.limitMaxCount - this.article.excerpt.length;
+      if (this.totalRemainCount <= 0) {
+        this.saveExcerpt = this.article.excerpt.substring(1, 140);
+      } else {
+        this.saveExcerpt = this.article.excerpt;
+      }
+      this.generatErr = this.totalRemainCount > 0 ? false : true;
     }
   },
   created() {
@@ -294,6 +357,7 @@ export default {
       this.article = this.$route.params.data;
       this.activeItem = this.article.id;
       this.activeImg = this.article.image;
+      this.saveExcerpt = this.article.excerpt;
     }
   }
 };

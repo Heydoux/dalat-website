@@ -4,7 +4,7 @@
       <div
         v-for="(article, index) in articles"
         v-bind:key="index"
-        class="mb-3 col-md-4 align-items-stretch"
+        class="mb-3 col-md-4 align-items-stretch text-center"
       >
         <!--<a class="d-inline-block" href="/blog">-->
         <router-link
@@ -22,7 +22,7 @@
             <div class="image-wrapper-vert">
               <img
                 :src="article.data().image"
-                alt=""
+                :alt="article.data().altthumbnail"
                 class="card-img-top img-fluid"
               />
             </div>

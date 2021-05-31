@@ -1,52 +1,50 @@
 <template>
   <div class="d-flex">
-    <div v-for="(profesional, index) in profesionales" v-bind:key="index">
-      <div class="row">
-        <div class="text-center">
-          <a
-            :href="profesional.data().link"
-            class=""
-            target="_blank"
-            :aria-labelledby="
+    <div
+      v-for="(profesional, index) in profesionales"
+      v-bind:key="index"
+      class="text-center mr-2"
+    >
+      <a
+        :href="profesional.data().link"
+        class=""
+        target="_blank"
+        :aria-labelledby="
+          'profesional-' +
+            profesional.data().nombre +
+            profesional.data().appellido +
+            '--new-window'
+        "
+        :aria-describedby="
+          'profesional-titulo' + profesional.data().titulo + '--new-window'
+        "
+      >
+        <div class="col">
+          <img
+            :src="profesional.data().photoUrl"
+            class="pro img-thumbnail"
+            alt=""
+          />
+          <h3
+            :id="
               'profesional-' +
                 profesional.data().nombre +
                 profesional.data().appellido +
                 '--new-window'
             "
-            :aria-describedby="
+          >
+            {{ profesional.data().nombre }}
+            {{ profesional.data().appellido }}
+          </h3>
+          <p
+            :id="
               'profesional-titulo' + profesional.data().titulo + '--new-window'
             "
           >
-            <div class="col">
-              <img
-                :src="profesional.data().photoUrl"
-                class="pro img-thumbnail"
-                alt=""
-              />
-              <h3
-                :id="
-                  'profesional-' +
-                    profesional.data().nombre +
-                    profesional.data().appellido +
-                    '--new-window'
-                "
-              >
-                {{ profesional.data().nombre }}
-                {{ profesional.data().appellido }}
-              </h3>
-              <p
-                :id="
-                  'profesional-titulo' +
-                    profesional.data().titulo +
-                    '--new-window'
-                "
-              >
-                {{ profesional.data().titulo }}
-              </p>
-            </div>
-          </a>
+            {{ profesional.data().titulo }}
+          </p>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
@@ -74,6 +72,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+a {
+  display: inline-block;
+}
+
 .profile-header {
   height: 150px;
 }
