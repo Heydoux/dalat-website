@@ -295,7 +295,6 @@ export default {
                 showConfirmButton: false,
                 timer: 1500
               });
-              this.$router.push({ name: "articlelist" });
             })
             .catch(function(error) {
               console.error("Error removing document: ", error);
@@ -304,8 +303,8 @@ export default {
                 title: "Oops...",
                 text: "Error borrando el documento"
               });
-              this.$router.push({ name: "articlelist" });
             });
+          this.$router.push({ name: "articlelist" });
         }
       });
     },

@@ -112,7 +112,7 @@ export default {
 <style scoped lang="scss">
 .image-wrapper-vert {
   width: 100%;
-  height: 210px;
+  height: 200px;
   position: relative;
   overflow: hidden;
 
