@@ -23,7 +23,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Dalat Comunidad - Homepage",
+      title: "Homepage",
       metaTags: [
         {
           name: "description",
@@ -32,7 +32,7 @@ const routes = [
         },
         {
           property: "og:title",
-          content: "Dalat Comunidad - Homepage"
+          content: "Homepage"
         },
         {
           property: "og:description",
@@ -95,7 +95,7 @@ const routes = [
     name: "About",
     component: SobreDalat,
     meta: {
-      title: "Dalat Comunidad - Sobre Dalat",
+      title: "Sobre Dalat",
       metaTags: [
         {
           name: "description",
@@ -104,7 +104,7 @@ const routes = [
         },
         {
           property: "og:title",
-          content: "Dalat Comunidad - Sobre Dalat"
+          content: "Sobre Dalat"
         },
         {
           property: "og:description",
@@ -123,7 +123,7 @@ const routes = [
     name: "Contact",
     component: Contacto,
     meta: {
-      title: "Dalat Comunidad - Contacto",
+      title: "Contacto",
       metaTags: [
         {
           name: "description",
@@ -132,7 +132,7 @@ const routes = [
         },
         {
           property: "og:title",
-          content: "Dalat Comunidad - Contacto"
+          content: "Contacto"
         },
         {
           property: "og:description",
@@ -151,7 +151,7 @@ const routes = [
     name: "Blog",
     component: Blog,
     meta: {
-      title: "Dalat Comunidad - Dalat Blog",
+      title: "Dalat Blog",
       metaTags: [
         {
           name: "description",
@@ -160,7 +160,7 @@ const routes = [
         },
         {
           property: "og:title",
-          content: "Dalat Comunidad - Dalat Blog"
+          content: "Dalat Blog"
         },
         {
           property: "og:description",

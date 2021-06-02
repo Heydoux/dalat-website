@@ -47,7 +47,7 @@
           </div>
           <div class="form-group py-3 border-bottom">
             <label for="articleTag" class="font-weight-bold text-uppercase">
-              Etiqueta (Terminar con coma)
+              Etiqueta (Terminar con coma o enter)
             </label>
             <input
               id="articleTag"
@@ -227,6 +227,12 @@ export default {
           icon: "error",
           title: "Oops...",
           text: "El articulo necesita una miniatura"
+        });
+      } else if (this.article.altthumbnail === null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "La miniatura necesita un texto alternativo"
         });
       } else {
         for (var i = 0; i < paragraphs.length; i++) {

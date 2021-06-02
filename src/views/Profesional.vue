@@ -180,7 +180,8 @@ export default {
         appellido: null,
         photoUrl: null,
         link: null,
-        titulo: null
+        titulo: null,
+        date: null
       },
       modal: null
     };
@@ -270,6 +271,7 @@ export default {
       });
     },
     addProfesional() {
+      this.profesional.date = new Date();
       this.$firestore.profesionales.add(this.profesional);
       Swal.fire({
         position: "top-end",

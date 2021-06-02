@@ -4,7 +4,7 @@
       <div
         v-for="(article, index) in articles"
         v-bind:key="index"
-        class="mb-3 col-md-4 align-items-stretch text-center"
+        class="mb-3 col-md-4 align-items-stretch"
       >
         <!--<a class="d-inline-block" href="/blog">-->
         <router-link

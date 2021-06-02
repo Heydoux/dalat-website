@@ -90,8 +90,8 @@
           Podes ser parte de la comunidad solicitando unirte a Slack.
         </p>
         <h2 class="text-uppercase">¿Querés escribirnos por mail?</h2>
-        <a href="mailto:dalat.accesibilidad@gmail.com" class="mail">
-          dalat.accesibilidad@gmail.com
+        <a href="mailto:info@dalatcomunidad.org" class="mail">
+          info@dalatcomunidad.org
         </a>
       </div>
       <div class="col-lg-6">

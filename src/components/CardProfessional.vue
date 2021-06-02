@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex flex-wrap">
     <div
       v-for="(profesional, index) in profesionales"
       v-bind:key="index"
-      class="text-center mr-2"
+      class="text-center mr-2 cardpro"
     >
       <a
         :href="profesional.data().link"
@@ -11,12 +11,14 @@
         target="_blank"
         :aria-labelledby="
           'profesional-' +
-            profesional.data().nombre +
-            profesional.data().appellido +
+            profesional.data().nombre.replace(/\s/g, '') +
+            profesional.data().appellido.replace(/\s/g, '') +
             '--new-window'
         "
         :aria-describedby="
-          'profesional-titulo' + profesional.data().titulo + '--new-window'
+          'profesional-' +
+            profesional.data().titulo.replace(/\s/g, '') +
+            '--new-window'
         "
       >
         <div class="col">
@@ -28,8 +30,8 @@
           <h3
             :id="
               'profesional-' +
-                profesional.data().nombre +
-                profesional.data().appellido +
+                profesional.data().nombre.replace(/\s/g, '') +
+                profesional.data().appellido.replace(/\s/g, '') +
                 '--new-window'
             "
           >
@@ -38,7 +40,9 @@
           </h3>
           <p
             :id="
-              'profesional-titulo' + profesional.data().titulo + '--new-window'
+              'profesional-' +
+                profesional.data().titulo.replace(/\s/g, '') +
+                '--new-window'
             "
           >
             {{ profesional.data().titulo }}
@@ -61,6 +65,7 @@ export default {
   },
   created() {
     db.collection("profesionales")
+      .orderBy("date", "asc")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -88,12 +93,22 @@ a {
   width: 7.813vw;
   height: 7.813vw;
 }
-
 @media only screen and (max-width: 768px) {
   .pro {
-    border-radius: 50%;
-    width: 7.813vw;
-    height: 7.813vw;
+    width: 12.5vw;
+    height: 12.5vw;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .cardpro {
+    max-width: 50%;
+    margin-right: 0 !important;
+
+    .pro {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 </style>

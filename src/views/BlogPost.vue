@@ -39,12 +39,12 @@
             <div class="fb-share share-div">
               <a
                 target="_blank"
-                :href="'https://work.facebook.com/sharer.php?u=' + blogUrl"
+                :href="'https://www.facebook.com/share.php?u=' + blogUrl"
                 @click="shareOnSocial(false)"
               >
                 <img
                   src="@/assets/images/blog/facebook.svg"
-                  alt="Facebook share button"
+                  alt="Compartir en Facebook"
                 />
               </a>
             </div>
@@ -56,7 +56,7 @@
               >
                 <img
                   src="@/assets/images/blog/twitter.svg"
-                  alt="Twitter share button"
+                  alt="Compartir en Twitter"
                 />
               </a>
             </div>
@@ -71,13 +71,16 @@
               >
                 <img
                   src="@/assets/images/blog/linkedin.svg"
-                  alt="Linkedin share button"
+                  alt="Compartir en Linkedin"
                 />
               </a>
             </div>
             <div class="copy-clipboard share-div">
               <button class="d-flex" @click="shareOnSocial(true)">
-                <img src="@/assets/images/blog/link.svg" alt="Copy url link" />
+                <img
+                  src="@/assets/images/blog/link.svg"
+                  alt="Copiar el link del articulo"
+                />
                 <p class="copy-popup d-none">Copiado!</p>
               </button>
             </div>
@@ -250,7 +253,7 @@ h3 {
 
 #reading-time {
   font-weight: bold;
-  color: grey;
+  color: #4e4545;
   letter-spacing: 0.06rem;
 }
 

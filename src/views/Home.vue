@@ -3,18 +3,17 @@
     <Navbar></Navbar>
     <main id="mainContent" class="container-lg">
       <div class="row">
-        <div class="col-md-6 order-md-2 mb-3">
+        <div class="col-md-8 order-md-2 mb-3">
           <Banner></Banner>
         </div>
-        <div class="col-md-6 order-md-1">
+        <div class="col-md-4 order-md-1">
           <h1 class="mb-5">
             Desarrollo Accesible Latinoamericano
           </h1>
-          <p class="mb-5 subtitle">
-            Comunidad de profesionales en accesibilidad e interesados en la
-            materia en Latinoamerica.
-            <br />
-            Podés encontrarnos en las redes
+          <p class="subtitle mb-5">
+            Somos profesionales de Accesibilidad que buscan generar y divulgar
+            conocimiento sobre la materia e impulsar a personas y comunidades
+            latinoamericanas.
           </p>
         </div>
       </div>

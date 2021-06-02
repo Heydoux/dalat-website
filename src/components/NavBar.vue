@@ -17,7 +17,7 @@
           <router-link to="/" class="d-inline-block dalat-link">
             <img
               src="@/assets/images/header/imagotipo.svg"
-              alt=""
+              alt="dalat inicio"
               width="130"
             />
           </router-link>
@@ -71,7 +71,7 @@ export default {
       $("#menuCloseBtn").addClass("d-block");
       $("#menuOpenBtn").addClass("d-none");
       $("#menuOpenBtn").addClass("d-none");
-      $("header").css("height", "100vh");
+      $("header").css("minHeight", "100vh");
       $("#menu-handlers").addClass("position-relative");
     },
     closeMenu() {
