@@ -27,6 +27,21 @@ export default {
     Banner,
     Form,
     Fin
+  },
+  metaInfo() {
+    return {
+      title: "Contacto",
+      meta: [
+        { property: "og:title", content: "Contacto" },
+        { property: "og:site_name", content: "Dalat Comunidad" },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "https://dalatcomunidad.org/contacto" },
+        {
+          property: "og:image",
+          content: "https://dalatcomunidad.org/img/grupodepersonas-1.png"
+        }
+      ]
+    };
   }
 };
 </script>

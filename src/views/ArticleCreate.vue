@@ -246,7 +246,7 @@ export default {
           this.article.readingTime = readingTime;
         }
         this.article.urlTitle = this.article.title
-          .replace(" ", "-")
+          .replace(/ /g, "-")
           .toLowerCase();
         db.collection("articles")
           .add(this.article)

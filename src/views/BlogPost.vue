@@ -194,6 +194,26 @@ export default {
         */
       }
     });
+  },
+  metaInfo() {
+    return {
+      title: `${this.article.title}`,
+      meta: [
+        { name: "description", content: this.article.excerpt },
+        { property: "og:title", content: this.article.title },
+        { property: "og:site_name", content: "Dalat Comunidad" },
+        { property: "og:description", content: this.article.excerpt },
+        { property: "og:type", content: "article" },
+        {
+          property: "og:url",
+          content:
+            `dalatcomunidad.org/blog/${this.article.urlTitle}` +
+            "?articleId=" +
+            this.article.id
+        },
+        { property: "og:image", content: this.article.image }
+      ]
+    };
   }
 };
 </script>

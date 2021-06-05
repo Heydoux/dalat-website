@@ -47,6 +47,21 @@ export default {
       end: 8,
       step: 6
     };
+  },
+  metaInfo() {
+    return {
+      title: "Dalat Blog",
+      meta: [
+        { property: "og:title", content: "Dalat Blog" },
+        { property: "og:site_name", content: "Dalat Comunidad" },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "https://dalatcomunidad.org/blog" },
+        {
+          property: "og:image",
+          content: "https://dalatcomunidad.org/img/blogpage.png"
+        }
+      ]
+    };
   }
 };
 </script>

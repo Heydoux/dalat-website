@@ -13,7 +13,7 @@
           <p class="mb-5 subtitle">
             Comunidad de profesionales en accesibilidad e interesados en la
             materia en Latinoamerica.
-            <br>
+            <br />
             Podés encontrarnos en las redes sociales.
           </p>
           <ul class="d-inline-block list-unstyled lista" role="list">
@@ -84,7 +84,6 @@
           </ul>
         </div>
       </div>
-
     </main>
     <Footer></Footer>
   </div>
@@ -103,15 +102,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  #mainContent {
-    height: calc(100vh - 340.2px);
+#mainContent {
+  height: calc(100vh - 340.2px);
 
-    ul {
-      li {
-        margin-right: 1rem;
-      }
+  ul {
+    li {
+      margin-right: 1rem;
     }
   }
+}
 @media screen and (max-width: 768px) {
   .home {
     h1 {

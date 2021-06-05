@@ -222,7 +222,7 @@ export default {
       }
       this.article.excerpt = this.saveExcerpt;
       this.article.urlTitle = this.article.title
-        .replace(" ", "-")
+        .replace(/ /g, "-")
         .toLowerCase();
       if (this.toUpdate) {
         let image = fb.storage().refFromURL(this.activeImg);

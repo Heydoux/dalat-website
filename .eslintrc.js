@@ -12,9 +12,9 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   },
   globals: {
-    "$": true,
-    "jQuery": true,
-    "Swal": true,
-    "Toast": true
+    $: true,
+    jQuery: true,
+    Swal: true,
+    Toast: true
   }
 };

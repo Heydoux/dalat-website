@@ -14,7 +14,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(especializacion, index) in especializaciones" v-bind:key="index">
+          <tr
+            v-for="(especializacion, index) in especializaciones"
+            v-bind:key="index"
+          >
             <td class="w-25 py-3">
               {{ especializacion.nombre }}
             </td>
@@ -71,7 +74,9 @@
               <!-- main especializacion -->
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="especializacion_nombre">Especializacion Nombre</label>
+                  <label for="especializacion_nombre"
+                    >Especializacion Nombre</label
+                  >
                   <input
                     id="especializacion_nombre"
                     type="text"
@@ -127,7 +132,7 @@
 </template>
 
 <script>
-import { fb, db } from "../firebase";
+import { db } from "../firebase";
 
 export default {
   name: "Especializacion",

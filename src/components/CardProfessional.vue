@@ -44,8 +44,19 @@
                 profesional.data().titulo.replace(/\s/g, '') +
                 '--new-window'
             "
+            class="job"
           >
             {{ profesional.data().titulo }}
+            <img
+              src="@/assets/images/sobredalat/linkedin-icon-blue.png"
+              alt="Perfil Linekdin"
+              class="img-fluid ml-1"
+            />
+            <img
+              src="@/assets/images/sobredalat/iconmonstr-share-8-16.png"
+              alt="Perfil Linekdin"
+              class="img-fluid ml-1"
+            />
           </p>
         </div>
       </a>
@@ -93,6 +104,14 @@ a {
   width: 7.813vw;
   height: 7.813vw;
 }
+
+.job {
+  img {
+    width: 16px;
+    height: auto;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .pro {
     width: 12.5vw;
