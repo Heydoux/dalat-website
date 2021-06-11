@@ -16,10 +16,10 @@
           <h2 class="text-uppercase mb-4">Lo ultimo del blog</h2>
           <CardsHorizontal type="date" size="full"></CardsHorizontal>
         </div>
-        <div class="d-none d-sm-block col-md-4">
+        <aside class="d-none d-sm-block col-md-4">
           <h2 class="text-uppercase mb-4">RECOMENDADO</h2>
           <Recomendaciones></Recomendaciones>
-        </div>
+        </aside>
       </div>
       <h2 class="w-100 text-uppercase mb-4">mas compartido</h2>
       <CardsVertical type="shared" limit="6" load="more"></CardsVertical>

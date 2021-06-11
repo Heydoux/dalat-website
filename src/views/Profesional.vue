@@ -11,8 +11,8 @@
         <thead>
           <tr>
             <th class="w-25 pb-3 pr-2">NOMBRE</th>
-            <th class="w-25 pr-2">APPELLIDO</th>
-            <th class="w-25 pr-2">MODIFICAR</th>
+            <th class="w-25 pb-3 pr-2">APPELLIDO</th>
+            <th class="w-25 pb-3 pr-2">MODIFICAR</th>
           </tr>
         </thead>
         <tbody>
@@ -181,7 +181,8 @@ export default {
         photoUrl: null,
         link: null,
         titulo: null,
-        date: null
+        date: null,
+        slug: null
       },
       modal: null
     };
@@ -272,6 +273,9 @@ export default {
     },
     addProfesional() {
       this.profesional.date = new Date();
+      this.profesional.slug =
+        this.profesional.nombre.toLowerCase() +
+        this.profesional.appellido.toLowerCase();
       this.$firestore.profesionales.add(this.profesional);
       Swal.fire({
         position: "top-end",

@@ -206,6 +206,17 @@ export default {
   border: none;
 }
 
+.form-control:focus {
+  border-color: #713e94;
+  box-shadow: 0 0 0 0.2rem rgba(113, 62, 148, 25%);
+}
+
+.btn-primary[data-v-1b5a9218]:hover {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+}
+
 h2 {
   font-weight: 600;
   font-size: 18px;

@@ -49,12 +49,13 @@
             {{ profesional.data().titulo }}
             <img
               src="@/assets/images/sobredalat/linkedin-icon-blue.png"
-              alt="Perfil Linekdin"
+              alt="Perfil Linkedin"
               class="img-fluid ml-1"
             />
             <img
               src="@/assets/images/sobredalat/iconmonstr-share-8-16.png"
               alt="Perfil Linekdin"
+              aria-hidden="true"
               class="img-fluid ml-1"
             />
           </p>

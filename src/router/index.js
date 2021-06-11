@@ -23,7 +23,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Homepage",
+      title: "Inicio",
       metaTags: [
         {
           name: "description",
@@ -32,7 +32,7 @@ const routes = [
         },
         {
           property: "og:title",
-          content: "Homepage"
+          content: "Inicio"
         },
         {
           property: "og:description",

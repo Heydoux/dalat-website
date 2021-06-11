@@ -27,9 +27,25 @@
               v-model="article.content"
             ></vue-editor>
           </div>
+          <div class="form-group">
+            <label for="articleContent" class="font-weight-bold text-uppercase">
+              Autores
+            </label>
+            <div v-for="prof in profesionales" :key="prof.index" class="mb-0">
+              <input
+                type="checkbox"
+                v-bind:id="prof.slug"
+                v-bind:value="prof.photoUrl"
+                v-model="checkedProfs"
+              />
+              <label v-bind:for="prof.slug" class="ml-3">
+                {{ prof.nombre }} {{ prof.appellido }}
+              </label>
+            </div>
+          </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group">
+          <div class="form-group pb-3 border-bottom">
             <button id="btn-update" @click="updateData" class="btn btn-primary">
               Modificar
             </button>
@@ -37,7 +53,7 @@
               Borrar
             </button>
           </div>
-          <div class="form-check mt-4">
+          <div class="form-check pb-3 border-bottom">
             <input
               type="checkbox"
               class="form-check-input"
@@ -48,21 +64,24 @@
               Articulo recomendado
             </label>
           </div>
-          <div class="form-group mt-4">
+          <div class="form-group py-3 border-bottom">
             <label for="articleTag" class="font-weight-bold text-uppercase">
-              Etiqueta (Terminar con coma o enter)
+              Etiqueta (Terminar con enter)
             </label>
             <input
               id="articleTag"
               type="text"
-              @keyup.188="addTag"
-              @keyup.13="addTag"
+              @input="findTag($event)"
+              @keydown="checkKeyPress($event)"
               placeholder="Articulo etiquetas"
-              v-model="tag"
               class="form-control"
             />
-            <div class="d-flex">
-              <p v-for="tag in article.tags" :key="tag.index">
+            <div
+              id="etiquetas-autocomplete-list"
+              class="d-none autocomplete-items"
+            ></div>
+            <div class="d-flex mt-3 flex-wrap">
+              <p v-for="tag in article.tags" :key="tag.index" class="mb-0">
                 <span class="p-1">{{ tag }}</span>
                 <img
                   @click="removeTag(tag)"
@@ -190,15 +209,24 @@ export default {
         excerpt: null,
         readingTime: 0,
         urlTitle: null,
-        altthumbnail: null
+        altthumbnail: null,
+        checkedProf: []
       },
+      checkedProfs: [],
       activeItem: null,
       activeImg: null,
       tag: null,
       limitMaxCount: 140,
       totalRemainCount: 140,
       generatErr: false,
-      saveExcerpt: null
+      saveExcerpt: null,
+      etiquetas: [],
+      currentFocus: null,
+      profesionales: [],
+      newEtiqueta: {
+        name: null,
+        slug: null
+      }
     };
   },
   editorSettings: {
@@ -206,56 +234,102 @@ export default {
       Video: {}
     }
   },
+  firestore() {
+    return {
+      etiquetas: db.collection("tags"),
+      profesionales: db.collection("profesionales")
+    };
+  },
   methods: {
     updateData() {
       const paragraphs = document.querySelectorAll(".ql-editor p");
       var count = 0;
-      for (var i = 0; i < paragraphs.length; i++) {
-        // Split the innerHtml of the current paragraph to count the words.
-        count += paragraphs[i].innerHTML.split(" ").length;
-      }
-      var readingTime = Math.round(count / 270);
-      if (readingTime < 1) {
-        this.article.readingTime = 1;
+      if (this.article.tags.length === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Faltan etiquetas"
+        });
+      } else if (this.article.title === null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El articulo necesita un titulo"
+        });
+      } else if (this.article.image === null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El articulo necesita una miniatura"
+        });
+      } else if (this.checkedProfs.length === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El articulo necesita los autores"
+        });
       } else {
-        this.article.readingTime = readingTime;
-      }
-      this.article.excerpt = this.saveExcerpt;
-      this.article.urlTitle = this.article.title
-        .replace(/ /g, "-")
-        .toLowerCase();
-      if (this.toUpdate) {
-        let image = fb.storage().refFromURL(this.activeImg);
-        console.log(image);
-        image
-          .delete()
-          .then(() => {
-            console.log("image deleted");
-            db.collection("articles")
-              .doc(this.activeItem)
-              .update(this.article)
-              .then(() => {
-                console.log("Document successfully updated!");
-                $("#successUpdate").modal("show");
-              })
-              .catch(error => {
-                console.error("Error updating document: ", error);
-              });
-          })
-          .catch(function(error) {
-            console.log("An error occured: ", error);
-          });
-      } else {
-        db.collection("articles")
-          .doc(this.activeItem)
-          .update(this.article)
-          .then(() => {
-            console.log("Document successfully updated!");
-            $("#successUpdate").modal("show");
-          })
-          .catch(error => {
-            console.error("Error updating document: ", error);
-          });
+        for (var i = 0; i < paragraphs.length; i++) {
+          // Split the innerHtml of the current paragraph to count the words.
+          count += paragraphs[i].innerHTML.split(" ").length;
+        }
+        var readingTime = Math.round(count / 270);
+        if (readingTime < 1) {
+          this.article.readingTime = 1;
+        } else {
+          this.article.readingTime = readingTime;
+        }
+        this.checkedProfs.forEach(element => {
+          this.article.checkedProf.push(element);
+        });
+        this.article.excerpt = this.saveExcerpt;
+        this.article.urlTitle = this.article.title
+          .replace(/ /g, "-")
+          .toLowerCase();
+        var tagNames = [];
+        for (var k = 0; k < this.etiquetas.length; k++) {
+          tagNames.push(this.etiquetas[k].name.toLowerCase());
+        }
+        for (var j = 0; j < this.article.tags.length; j++) {
+          if (!tagNames.includes(this.article.tags[j].toLowerCase())) {
+            this.newEtiqueta.name = this.article.tags[j];
+            this.newEtiqueta.slug = this.article.tags[j].toLowerCase();
+            this.$firestore.etiquetas.add(this.newEtiqueta);
+          }
+        }
+        if (this.toUpdate) {
+          let image = fb.storage().refFromURL(this.activeImg);
+          console.log(image);
+          image
+            .delete()
+            .then(() => {
+              console.log("image deleted");
+              db.collection("articles")
+                .doc(this.activeItem)
+                .update(this.article)
+                .then(() => {
+                  console.log("Document successfully updated!");
+                  $("#successUpdate").modal("show");
+                })
+                .catch(error => {
+                  console.error("Error updating document: ", error);
+                });
+            })
+            .catch(function(error) {
+              console.log("An error occured: ", error);
+            });
+        } else {
+          db.collection("articles")
+            .doc(this.activeItem)
+            .update(this.article)
+            .then(() => {
+              console.log("Document successfully updated!");
+              $("#successUpdate").modal("show");
+            })
+            .catch(error => {
+              console.error("Error updating document: ", error);
+            });
+        }
       }
     },
     reset() {
@@ -308,16 +382,110 @@ export default {
         }
       });
     },
-    addTag() {
-      this.tag = this.tag.replace(",", "");
-      this.article.tags.push(this.tag);
-      this.tag = "";
-    },
     removeTag(tag) {
       for (var i = 0; i < this.article.tags.length; i++) {
         if (this.article.tags[i] === tag) {
           this.article.tags.splice(i, 1);
         }
+      }
+    },
+    closeAllLists() {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var dropdown = document.getElementById("etiquetas-autocomplete-list");
+      dropdown.classList.add("d-none");
+      while (dropdown.firstChild) {
+        dropdown.removeChild(dropdown.lastChild);
+      }
+    },
+    findTag(event) {
+      var enterTag = event.target.value;
+      var b, i;
+      this.closeAllLists();
+      if (!enterTag) {
+        return false;
+      }
+      this.currentFocus = -1;
+      var dropdown = document.getElementById("etiquetas-autocomplete-list");
+      /*append the DIV element as a child of the autocomplete container:*/
+      /*for each item in the array...*/
+      for (i = 0; i < this.etiquetas.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (
+          this.etiquetas[i].name.substr(0, enterTag.length).toUpperCase() ==
+          enterTag.toUpperCase()
+        ) {
+          dropdown.classList.remove("d-none");
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML =
+            "<strong>" +
+            this.etiquetas[i].name.substr(0, enterTag.length) +
+            "</strong>";
+          b.innerHTML += this.etiquetas[i].name.substr(enterTag.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML +=
+            "<input type='hidden' value='" + this.etiquetas[i].name + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          var self = this;
+          b.addEventListener("click", function() {
+            /*insert the value for the autocomplete text field:*/
+            self.tag = this.getElementsByTagName("input")[0].value;
+            self.article.tags.push(self.tag);
+            self.tag = "";
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            dropdown.classList.add("d-none");
+            while (dropdown.firstChild) {
+              dropdown.removeChild(dropdown.lastChild);
+            }
+            document.getElementById("articleTag").value = "";
+          });
+          dropdown.appendChild(b);
+        }
+      }
+    },
+    checkKeyPress(event) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (event.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        this.currentFocus++;
+        /*and and make the current item more visible:*/
+        this.addActive(x);
+      } else if (event.keyCode == 38) {
+        //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        this.currentFocus--;
+        /*and and make the current item more visible:*/
+        this.addActive(x);
+      } else if (event.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        this.tag = document.getElementById("articleTag").value;
+        this.tag = this.tag.replace(",", "");
+        this.article.tags.push(this.tag);
+        this.tag = "";
+        this.closeAllLists();
+        document.getElementById("articleTag").value = "";
+      }
+    },
+    addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      this.removeActive(x);
+      if (this.currentFocus >= x.length) this.currentFocus = 0;
+      if (this.currentFocus < 0) this.currentFocus = x.length - 1;
+      /*add class "autocomplete-active":*/
+      x[this.currentFocus].classList.add("autocomplete-active");
+    },
+    removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
       }
     },
     uploadImage(e) {
@@ -357,6 +525,9 @@ export default {
       this.activeItem = this.article.id;
       this.activeImg = this.article.image;
       this.saveExcerpt = this.article.excerpt;
+      this.article.checkedProf.forEach(element => {
+        this.checkedProfs.push(element);
+      });
     }
   }
 };
@@ -373,10 +544,6 @@ export default {
   background-color: $blue;
   border-color: $blue;
   text-decoration: underline;
-}
-
-.quillWrapper {
-  height: 500px;
 }
 
 .fakefile {
@@ -397,5 +564,9 @@ export default {
     z-index: 1;
     width: 100%;
   }
+}
+
+.icon-remove {
+  cursor: pointer;
 }
 </style>

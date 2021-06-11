@@ -1,45 +1,84 @@
 <template>
-  <a href="" class="d-inline-block w-100">
-    <div class="card-aspect card">
-      <div class="imgs-block">
-        <!--<img
-          src="@/assets/images/cardHorizontal.png"
-          class="imagen imagen1"
-          alt=""
-        />
-        <img
-          src="@/assets/images/cardHorizontal.png"
-          class="imagen imagen2"
-          alt=""
-        />-->
-      </div>
-      <div class="text-block">
-        <h3>TITULO ARTICULO</h3>
-        <p class="lectura card-text">Tiempo de lectura: 10'</p>
-      </div>
-    </div>
-  </a>
+  <div>
+    <article v-for="(article, index) in articles" v-bind:key="index">
+      <a
+        href=""
+        class="d-inline-block w-100"
+        :aria-labelledby="'blog-title-' + index"
+        :aria-describedby="' blog-time-' + index"
+      >
+        <div class="card-aspect card">
+          <div class="imgs-block align-items-center">
+            <div
+              v-for="(autor, index) in article.data().checkedProf"
+              v-bind:key="index"
+            >
+              <img
+                :src="autor"
+                class="imagen"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="text-block">
+            <h3 :id="'blog-title-' + index">{{ article.data().title }}</h3>
+            <p class="lectura card-text">
+              <span class="lectura" aria-hidden="true">
+                Tiempo de lectura: {{ article.data().readingTime }}’
+              </span>
+              <span class="sr-only" :id="'blog-time-' + index">
+                Tiempo de lectura: {{ article.data().readingTime }} minutos
+              </span>
+            </p>
+          </div>
+        </div>
+      </a>
+    </article>
+  </div>
 </template>
 
 <script>
+import { db } from "../firebase";
+
 export default {
   name: "Recomendaciones",
-  props: {}
+  props: {},
+  data() {
+    return {
+      articles: [],
+      profesionales: [],
+      checkedProfs: []
+    };
+  },
+  firestore() {
+    return {
+      profesionales: db.collection("profesionales")
+    };
+  },
+  methods: {},
+  created() {
+    var articlesRef = db.collection("articles");
+    articlesRef
+      .where("recomendado", "==", true)
+      .limit(3)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          /*if (doc.data().checkedProf.length > 2) {
+            this.checkedProfs.push("/img/imagotipo.583e5cd4.svg");
+          } else {
+            doc.data().checkedProf.forEach( element => {
+              this.checkedProfs.push(element);
+            });
+          }*/
+          this.articles.push(doc);
+        });
+      });
+  }
 };
 </script>
 
 <style scoped lang="scss">
-/*
-.imagen1 {
-  margin: 1.172vw 0vw 0vw 1.016vw;
-  border: 2px solid $orange;
-}
-
-.imagen2 {
-  margin-left: -0.781vw;
-  border: 2px solid $blue;
-}
-*/
 .imgs-block {
   display: flex;
   width: 33.33%;
@@ -50,13 +89,17 @@ export default {
     border-radius: 50%;
   }
 
-  img:nth-child(1) {
-    border: 2px solid $orange;
+  div:nth-child(1) {
+    img {
+      border: 2px solid $orange;
+    }
   }
 
-  img:nth-child(2) {
-    border: 2px solid $blue;
-    margin-left: -10px;
+  div:nth-child(2) {
+    img {
+      border: 2px solid $blue;
+      margin-left: -10px;
+    }
   }
 }
 

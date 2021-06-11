@@ -149,6 +149,28 @@ strong {
 .sidebar-wrapper .sidebar-footer > div > a {
   flex-grow: 1;
 }
+
+.autocomplete-items {
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+
+  div {
+    padding: 0.5rem;
+    border-bottom: 1px solid #d4d4d4;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e9e9e9;
+    }
+  }
+}
+
+.admin {
+  #articleContent{
+    height: 500px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .page-wrapper.toggled .page-content {
     padding-left: 280px;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div
+      <article
         v-for="(article, index) in articles"
         v-bind:key="index"
         class="mb-3 col-md-4 align-items-stretch"
@@ -52,7 +52,7 @@
           </div>
         </router-link>
         <!--</a>-->
-      </div>
+      </article>
     </div>
     <div
       v-if="this.load === 'more' && articles.length > this.limit"

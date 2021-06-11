@@ -5,24 +5,31 @@
     </a>
     <div class="container-lg">
       <div class="row align-items-center">
-        <div id="menu-handlers">
-          <button id="menuOpenBtn" to="#" @click="openMenu">
-            <img src="@/assets/images/header/Grupo_102.png" alt="" width="40" />
-          </button>
-          <button id="menuCloseBtn" to="#" class="d-none" @click="closeMenu">
-            <img src="@/assets/images/header/Grupo_103.png" alt="" width="40" />
-          </button>
-        </div>
-        <div class="col logo">
+        <div id="logo">
           <router-link to="/" class="d-inline-block dalat-link">
             <img
               src="@/assets/images/header/imagotipo.svg"
-              alt="dalat inicio"
+              alt="Inicio"
               width="130"
             />
           </router-link>
         </div>
-        <nav class="col" role="navigation">
+        <button id="hamburger" aria-expanded="true" @click="toggleMenu">
+          <span>Menu</span>
+          <img
+            class="openMenu"
+            loading="lazy"
+            src="@/assets/images/header/Grupo_102.png"
+            alt="Abrir el menu"
+          />
+          <img
+            class="closeMenu"
+            loading="lazy"
+            src="@/assets/images/header/Grupo_103.png"
+            alt="Cerrar el menu"
+          />
+        </button>
+        <nav class="col main-nav" role="navigation">
           <div class="menu">
             <ul class="list-unstyled mb-0" role="list">
               <li class="d-inline-block">
@@ -65,29 +72,30 @@ export default {
     jumpMainContent() {
       $("#mainContent").focus();
     },
-    openMenu() {
-      $("nav").css("display", "block");
-      $("#menuCloseBtn").removeClass("d-none");
-      $("#menuCloseBtn").addClass("d-block");
-      $("#menuOpenBtn").addClass("d-none");
-      $("#menuOpenBtn").addClass("d-none");
-      $("header").css("minHeight", "100vh");
-      $("#menu-handlers").addClass("position-relative");
-    },
-    closeMenu() {
-      $("nav").css("display", "none");
-      $("#menuCloseBtn").addClass("d-none");
-      $("#menuCloseBtn").removeClass("d-block");
-      $("#menuOpenBtn").removeClass("d-none");
-      $("header").css("height", "unset");
-      $("#menu-handlers").removeClass("position-relative");
+    toggleMenu() {
+      console.log($("#hamburger").attr("aria-expanded"));
+      if ($("#hamburger").attr("aria-expanded") == "false") {
+        $("#hamburger").attr("aria-expanded", "true");
+        $("header").css("minHeight", "100vh");
+        $("#logo").css("marginTop", "10vh");
+      } else {
+        $("#hamburger").attr("aria-expanded", "false");
+        $("header").css("minHeight", "unset");
+        $("#logo").css("marginTop", "unset");
+      }
     }
+  },
+  mounted() {
+    $("#hamburger").attr("aria-expanded", "false");
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+#hamburger[aria-expanded="true"] + .main-nav {
+  display: block;
+}
 header {
   padding: 10px 0;
   box-shadow: 0px 3px 6px $shadow;
@@ -102,17 +110,14 @@ header {
     }
   }
 
-  .col.logo {
-    flex: 0 0 130px;
-  }
-
   .dalat-link {
     border-top-left-radius: 1px;
     border-bottom-right-radius: 1px;
   }
 
-  #menu-handlers {
+  #hamburger {
     display: none;
+    top: 10px;
   }
 
   nav {
@@ -157,21 +162,39 @@ header {
         text-align: center;
         height: 100%;
 
-        #menu-handlers {
+        #hamburger {
           position: absolute;
           display: block;
+          background: transparent;
+          border: none;
 
-          button {
-            border: none;
-            background: $white;
-
-            &#menuCloseBtn {
-              margin-bottom: 4vh;
+          &[aria-expanded="true"] {
+            .openMenu {
+              display: none;
             }
+            .closeMenu {
+              display: block;
+            }
+          }
+
+          .openMenu {
+            display: block;
+            margin: auto;
+            width: 25px;
+          }
+
+          .closeMenu {
+            display: none;
+            margin: auto;
+            width: 20px;
+          }
+
+          img {
+            max-width: 100%;
           }
         }
 
-        .logo {
+        #logo {
           width: fit-content;
           margin: auto;
         }

@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.size === 'half'" class="row" :key="componentKey">
-    <div
+    <article
       v-for="(article, index) in articles"
       v-bind:key="index"
       class="col-md-6"
@@ -57,10 +57,10 @@
           </div>
         </div>
       </a>
-    </div>
+    </article>
   </div>
   <div v-else class="row">
-    <div
+    <article
       v-for="(article, index) in articles"
       v-bind:key="index"
       class="col-md-12"
@@ -117,7 +117,7 @@
           </div>
         </div>
       </a>
-    </div>
+    </article>
   </div>
 </template>
 

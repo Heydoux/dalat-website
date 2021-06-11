@@ -5,7 +5,7 @@
       <h1
         style="display: flex; justify-content: center; color: rgb(10, 48, 85);"
       >
-        Sobre nosotros
+        Sobre Dalat
       </h1>
       <Banner></Banner>
       <div class="container mt-5">
@@ -247,7 +247,7 @@ export default {
 
   a {
     text-decoration: underline;
-    color: #007bff;
+    color: #713e94;
   }
 
   .sr-only {
