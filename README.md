@@ -1,5 +1,7 @@
 # dalat-website
 
+Développement d'un CMS en Vuejs pour la communauté Dalat (Programmation accessible Amérique du Sud)
+
 ## Project setup
 
 ```
