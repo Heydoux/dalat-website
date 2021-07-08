@@ -69,14 +69,6 @@ export default {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.data().checkedProfs);
-          /*if (doc.data().checkedProf.length > 2) {
-            this.checkedProfs.push("/img/imagotipo.583e5cd4.svg");
-          } else {
-            doc.data().checkedProf.forEach( element => {
-              this.checkedProfs.push(element);
-            });
-          }*/
           this.articles.push(doc);
         });
       });

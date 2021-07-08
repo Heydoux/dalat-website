@@ -73,7 +73,7 @@
               type="text"
               @input="findTag($event)"
               @keydown="checkKeyPress($event)"
-              placeholder="Articulo etiquetas"
+              placeholder="Etiqueta articulo"
               class="form-control"
             />
             <div
@@ -212,6 +212,7 @@ export default {
       etiquetas: [],
       currentFocus: null,
       profesionales: [],
+      cpt: [],
       newEtiqueta: {
         name: null,
         slug: null
@@ -226,7 +227,8 @@ export default {
   firestore() {
     return {
       etiquetas: db.collection("tags"),
-      profesionales: db.collection("profesionales")
+      profesionales: db.collection("profesionales"),
+      cpt: db.collection("articlesCpt")
     };
   },
   methods: {
@@ -368,6 +370,8 @@ export default {
                 text: "Error borrando el documento"
               });
             });
+          this.cpt[0].cpt -= 1;
+          this.$firestore.cpt.doc(this.cpt[0].id).update(this.cpt[0]);
           this.$router.push({ name: "articlelist" });
         }
       });

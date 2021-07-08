@@ -67,7 +67,7 @@
           <div>
             <a href="#" @click="logout()">
               <img src="@/assets/images/admin/logout.svg" alt="" class="icon" />
-              <span class="menu-text">Desconectar</span>
+              <span class="menu-text">Cerrar sesión</span>
             </a>
           </div>
         </div>
@@ -99,6 +99,16 @@ export default {
           console.log(err);
         });
     }
+  },
+  metaInfo() {
+    return {
+      title: "Administración",
+      meta: [
+        { property: "og:title", content: "Administración" },
+        { property: "og:site_name", content: "Dalat Comunidad" },
+        { property: "og:type", content: "website" }
+      ]
+    };
   }
 };
 </script>

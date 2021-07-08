@@ -5,7 +5,7 @@
     >
       <h3 class="d-inline-block">Profesionales</h3>
       <button @click="addNew" class="btn btn-primary float-right">
-        Add Profesional
+        Agregar Profesional
       </button>
       <table class="table-responsive mt-5 w-100">
         <thead>

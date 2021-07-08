@@ -25,10 +25,10 @@
             <td v-else class="bg-light">{{ article.data().content }}</td>
             -->
             <td v-if="index % 2" class="py-3 text-center">
-              {{ article.data().recomendado ? "Sí" : " " }}
+              {{ article.data().recomendado ? "Sí" : "No" }}
             </td>
             <td v-else class="py-3 bg-light text-center">
-              {{ article.data().recomendado ? "Sí" : " " }}
+              {{ article.data().recomendado ? "Sí" : "No" }}
             </td>
             <td>
               <button @click="modifyArticle(article)" class="btn btn-primary">

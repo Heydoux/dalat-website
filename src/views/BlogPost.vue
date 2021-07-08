@@ -148,18 +148,17 @@ export default {
     }
   },
   created() {
-    this.blogUrl = window.location.href;
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    this.activeItem = urlParams.get("articleId");
+    this.blogUrl = this.$route.params.slug;
     db.collection("articles")
-      .doc(this.activeItem)
+      .where("urlTitle", "==", this.blogUrl)
       .get()
       .then(querySnapshot => {
-        this.article = querySnapshot.data();
-        this.content = $(this.article.content);
-        $("#content").append(this.content);
-        $(".ql-align-center").css("textAlign", "center");
+        querySnapshot.forEach(element => {
+          this.article = element.data();
+          this.content = $(this.article.content);
+          $("#content").append(this.content);
+          $(".ql-align-center").css("textAlign", "center");
+        });
       })
       .catch(error => {
         console.error("Error getting document: ", error);

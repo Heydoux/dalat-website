@@ -3,6 +3,7 @@
     <Navbar></Navbar>
     <main id="mainContent" class="container-lg">
       <div class="modal-body">
+        <!--
         <ul class="nav nav-fill nav-pills mb-3" id="pills-tab" role="tablist">
           <li class="nav-item">
             <a
@@ -17,7 +18,7 @@
               Ingresar
             </a>
           </li>
-          <!--
+          
           <li class="nav-item">
             <a
               class="nav-link"
@@ -31,8 +32,9 @@
               Crear cuenta
             </a>
           </li>
-          -->
+          
         </ul>
+        -->
         <div class="tab-content" id="pills-tabContent">
           <div
             class="tab-pane fade show active"
@@ -63,9 +65,9 @@
               />
             </div>
             <div class="form-group d-flex justify-content-between">
-              <button class="btn btn-primary" @click="login">Continuar</button>
+              <button class="btn btn-primary" @click="login">Ingresar</button>
               <button class="btn btn-danger" @click="resetPassword">
-                Contraseña olvidada !
+                Olvidé contraseña !
               </button>
             </div>
           </div>

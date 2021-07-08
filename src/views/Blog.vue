@@ -22,7 +22,7 @@
         </aside>
       </div>
       <h2 class="w-100 text-uppercase mb-4">mas compartido</h2>
-      <CardsVertical type="shared" limit="6" load="more"></CardsVertical>
+      <CardsVertical type="shared" limit="3" load="more"></CardsVertical>
     </main>
     <Footer></Footer>
   </div>

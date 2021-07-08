@@ -7,12 +7,22 @@
         class="mb-3 col-md-4 align-items-stretch"
       >
         <!--<a class="d-inline-block" href="/blog">-->
+        <!--
         <router-link
           class="d-inline-block"
           :to="{
             path: `/blog/${article.data().urlTitle}`,
             query: { articleId: article.id }
           }"
+          :aria-labelledby="'blog-' + type + 'title-' + index"
+          :aria-describedby="
+            'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
+          "
+        >
+        -->
+        <router-link
+          class="d-inline-block"
+          :to="'/blog/' + article.data().urlTitle"
           :aria-labelledby="'blog-' + type + 'title-' + index"
           :aria-describedby="
             'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
@@ -55,8 +65,9 @@
       </article>
     </div>
     <div
-      v-if="this.load === 'more' && articles.length > this.limit"
+      v-if="this.load === 'more' && this.cpt[0].cpt > this.limit"
       class="d-flex justify-content-center"
+      id="showmore-btn"
     >
       <button type="button" class="btn btn-mas" @click="showmore">
         Mostrar más notas
@@ -74,7 +85,13 @@ export default {
   data() {
     return {
       articles: [],
-      lastVisible: null
+      lastVisible: null,
+      cpt: []
+    };
+  },
+  firestore() {
+    return {
+      cpt: db.collection("articlesCpt")
     };
   },
   methods: {
@@ -89,6 +106,10 @@ export default {
           this.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
           querySnapshot.forEach(doc => {
             this.articles.push(doc);
+            if (this.articles.length === this.cpt[0].cpt) {
+              $("#showmore-btn").removeClass("d-flex");
+              $("#showmore-btn").addClass("d-none");
+            }
           });
         });
     }

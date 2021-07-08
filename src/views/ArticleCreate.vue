@@ -46,11 +46,6 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group pb-3 border-bottom">
-            <button @click="saveData" class="btn btn-primary">
-              CREAR
-            </button>
-          </div>
           <div class="form-check pb-3 border-bottom">
             <input
               type="checkbox"
@@ -71,7 +66,7 @@
               type="text"
               @input="findTag($event)"
               @keydown="checkKeyPress($event)"
-              placeholder="Articulo etiquetas"
+              placeholder="Etiqueta articulo"
               class="form-control"
             />
             <div
@@ -136,6 +131,11 @@
               rows="10"
               v-on:keyup="liveCountDown"
             />
+          </div>
+          <div class="form-group pb-3 border-bottom">
+            <button @click="saveData" class="btn btn-primary">
+              PUBLICAR ARTICULO
+            </button>
           </div>
         </div>
       </div>
@@ -224,6 +224,7 @@ export default {
       etiquetas: [],
       currentFocus: null,
       profesionales: [],
+      cpt: [],
       newEtiqueta: {
         name: null,
         slug: null
@@ -238,7 +239,8 @@ export default {
   firestore() {
     return {
       etiquetas: db.collection("tags"),
-      profesionales: db.collection("profesionales")
+      profesionales: db.collection("profesionales"),
+      cpt: db.collection("articlesCpt")
     };
   },
   methods: {
@@ -308,6 +310,8 @@ export default {
           .add(this.article)
           .then(docRef => {
             console.log("Document written with ID: ", docRef.id);
+            this.cpt[0].cpt += 1;
+            this.$firestore.cpt.doc(this.cpt[0].id).update(this.cpt[0]);
             $("#successCreate").modal("show");
             this.reset();
           })
