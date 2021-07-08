@@ -185,7 +185,7 @@ h4 {
 
 .btn-mas {
   color: rgb(255, 255, 255);
-  background-color: rgb(113, 62, 148);
+  background-color: #0a3055;
   border-radius: 12px 2px;
   border: none;
 }

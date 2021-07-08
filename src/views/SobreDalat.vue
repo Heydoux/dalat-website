@@ -168,28 +168,28 @@
                 <div class="col">
                   <img
                     src="@/assets/images/sobredalat/logo-itgrarte.png"
-                    alt="Fundacion itgrarte logo"
+                    alt="Fundacion itgrarte"
                     class="img-fluid"
                   />
                 </div>
                 <div class="col">
                   <img
                     src="@/assets/images/sobredalat/mas-mujeres-en-ux.jpg"
-                    alt="+Mujeres UX Argentina logo"
+                    alt="+Mujeres UX Argentina"
                     class="img-fluid"
                   />
                 </div>
                 <div class="col">
                   <img
                     src="@/assets/images/sobredalat/espacio-epilepsia.webp"
-                    alt="Espacio Epilepsia logo"
+                    alt="Espacio Epilepsia"
                     class="img-fluid"
                   />
                 </div>
                 <div class="col">
                   <img
                     src="@/assets/images/sobredalat/a11y-peru.png"
-                    alt="A11y Perú logo"
+                    alt="A11y Perú"
                     class="img-fluid"
                   />
                 </div>

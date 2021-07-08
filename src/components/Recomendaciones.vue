@@ -1,6 +1,10 @@
 <template>
   <div>
-    <article v-for="(article, index) in articles" v-bind:key="index">
+    <article
+      v-for="(article, index) in articles"
+      v-bind:key="index"
+      class="mb-3"
+    >
       <a
         href=""
         class="d-inline-block w-100"
@@ -80,6 +84,7 @@ export default {
 .imgs-block {
   display: flex;
   width: 33.33%;
+  justify-content: center;
 
   img {
     width: 40px;
@@ -116,6 +121,10 @@ h3 {
   color: $black;
   font-size: 18px;
   font-weight: 600;
+  min-height: 72px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .card-aspect {

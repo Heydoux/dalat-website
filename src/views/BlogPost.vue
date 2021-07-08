@@ -148,9 +148,10 @@ export default {
     }
   },
   created() {
-    this.blogUrl = this.$route.params.slug;
+    var urlPost = this.$route.params.slug;
+    this.blogUrl = window.location.origin + "/blog/" + this.$route.params.slug;
     db.collection("articles")
-      .where("urlTitle", "==", this.blogUrl)
+      .where("urlTitle", "==", urlPost)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(element => {
@@ -224,10 +225,19 @@ nav.breadcrumb li {
 
 nav.breadcrumb li + li::before {
   display: inline-block;
-  font-size: 16px;
-  margin: 0 0.25em;
-  height: 0.8em;
-  content: ">";
+  margin: 0.1em 0.5em;
+  border-style: solid;
+  border-width: 0.2em 0.2em 0 0;
+  content: "";
+  height: 0.75em;
+  left: 0.15em;
+  position: relative;
+  top: 0.15em;
+  transform: rotate(-45deg);
+  vertical-align: top;
+  width: 0.75em;
+  left: 0;
+  transform: rotate(45deg);
 }
 
 nav.breadcrumb [aria-current="page"] {

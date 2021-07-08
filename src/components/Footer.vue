@@ -10,7 +10,7 @@
       </div>
       <div class="row no-gutters align-items-center">
         <div class="col footer-slogan">
-          Somos un grupos de profesionales especializados en accesibilidad.
+          Somos un grupo de profesionales especializados en accesibilidad.
         </div>
         <div class="col footer-nav text-sm-cente mt-4 mt-md-0">
           <ul class="list-unstyled mb-0 text-md-right" role="list">
@@ -24,8 +24,13 @@
               <a classnamename="d-block" href="/contacto">Contacto</a>
             </li>
             <li class="d-inline-block mb-3">
-              <a classnamename="d-block" href="https://cutt.ly/HbTI7X5">
+              <a
+                classnamename="d-block"
+                href="https://cutt.ly/HbTI7X5"
+                target="_blank"
+              >
                 Unirme a la comunidad
+                <span class="sr-only">Abre en otra pagina</span>
               </a>
             </li>
           </ul>

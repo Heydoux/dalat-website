@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="position-relative">
     <a href="#mainContent" id="skipcontent" @click="jumpMainContent">
       Saltar a contenido
     </a>
@@ -9,13 +9,12 @@
           <router-link to="/" class="d-inline-block dalat-link">
             <img
               src="@/assets/images/header/imagotipo.svg"
-              alt="Inicio"
+              alt="Página principal"
               width="130"
             />
           </router-link>
         </div>
         <button id="hamburger" aria-expanded="true" @click="toggleMenu">
-          <span>Menu</span>
           <img
             class="openMenu"
             loading="lazy"
@@ -37,7 +36,7 @@
               </li>
               <li class="d-inline-block">
                 <router-link to="/sobre-dalat" class="d-block px-3">
-                  Sobre Nosotros
+                  Sobre Dalat
                 </router-link>
               </li>
               <li class="d-inline-block">
@@ -52,6 +51,7 @@
                   target="_blank"
                 >
                   Unirme a la comunidad
+                  <span class="sr-only">Abre en otra pagina</span>
                 </a>
               </li>
             </ul>
@@ -167,8 +167,13 @@ header {
           display: block;
           background: transparent;
           border: none;
+          top: 50%;
+          transform: translateY(-50%);
 
           &[aria-expanded="true"] {
+            top: 20px;
+            transform: none;
+
             .openMenu {
               display: none;
             }
@@ -237,6 +242,8 @@ header {
                   line-height: 50px;
                   padding-top: 0;
                   padding-bottom: 0;
+                  margin-left: 0 !important;
+                  margin-top: 1rem;
                 }
               }
             }

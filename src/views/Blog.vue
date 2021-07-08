@@ -12,17 +12,19 @@
         />
       </div>
       <div class="row">
-        <div class="col-md-8">
+        <section class="col-md-8" id="ultimoblog">
           <h2 class="text-uppercase mb-4">Lo ultimo del blog</h2>
           <CardsHorizontal type="date" size="full"></CardsHorizontal>
-        </div>
+        </section>
         <aside class="d-none d-sm-block col-md-4">
           <h2 class="text-uppercase mb-4">RECOMENDADO</h2>
           <Recomendaciones></Recomendaciones>
         </aside>
       </div>
-      <h2 class="w-100 text-uppercase mb-4">mas compartido</h2>
-      <CardsVertical type="shared" limit="3" load="more"></CardsVertical>
+      <section id="mascompartido">
+        <h2 class="w-100 text-uppercase mb-4">mas compartido</h2>
+        <CardsVertical type="shared" limit="6" load="more"></CardsVertical>
+      </section>
     </main>
     <Footer></Footer>
   </div>
@@ -50,9 +52,9 @@ export default {
   },
   metaInfo() {
     return {
-      title: "Dalat Blog",
+      title: "Blog",
       meta: [
-        { property: "og:title", content: "Dalat Blog" },
+        { property: "og:title", content: "Blog" },
         { property: "og:site_name", content: "Dalat Comunidad" },
         { property: "og:type", content: "website" },
         { property: "og:url", content: "https://dalatcomunidad.org/blog" },
