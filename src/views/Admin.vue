@@ -19,7 +19,7 @@
             >
               <!-- sidebar-brand  -->
               <div class="sidebar-item sidebar-brand">
-                <a href="#">Dalat Administración</a>
+                <h1>Dalat Administración</h1>
               </div>
               <!-- sidebar-menu  -->
               <div class="sidebar-item sidebar-menu">

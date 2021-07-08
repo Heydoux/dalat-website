@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex flex-wrap">
-    <div
+  <ul class="p-0 row">
+    <li
       v-for="(profesional, index) in profesionales"
       v-bind:key="index"
-      class="text-center mr-2 cardpro"
+      class="text-center cardpro col-md-4"
     >
       <a
         :href="profesional.data().link"
@@ -61,8 +61,8 @@
           </p>
         </div>
       </a>
-    </div>
-  </div>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -89,6 +89,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+li {
+  list-style: none;
+}
+
 a {
   display: inline-block;
 }

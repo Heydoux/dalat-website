@@ -79,7 +79,6 @@ class VideoBuilder {
   }
 
   select(overlay, quill, node) {
-    console.log("toto");
     this.selectedElement = overlay;
     if (this.selectedElement.className.indexOf("active") === -1) {
       this.quill = quill;

@@ -53,11 +53,7 @@ export default {
   data() {
     return {
       articles: [],
-      article: {
-        title: null,
-        content: null,
-        id: null
-      }
+      article: {}
     };
   },
   methods: {

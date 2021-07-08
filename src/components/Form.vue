@@ -90,15 +90,16 @@
           Podes ser parte de la comunidad solicitando unirte a Slack.
         </p>
         <h2 class="text-uppercase">¿Querés escribirnos por mail?</h2>
-        <a href="mailto:info@dalatcomunidad.org" class="mail">
-          info@dalatcomunidad.org
+        <a href="mailto:contacto@dalatcomunidad.org" class="mail">
+          contacto@dalatcomunidad.org
         </a>
       </div>
       <div class="col-lg-6">
         <form
           role="form"
           aria-label="Formulario de Contacto"
-          @submit="saveContactMessage"
+          action="https://formspree.io/f/mqkwlreq"
+          method="POST"
         >
           <div class="form-group" data-children-count="1">
             <label class="form-label" for="name">Nombre</label>

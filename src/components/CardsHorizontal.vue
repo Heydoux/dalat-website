@@ -31,12 +31,12 @@
                   {{ article.data().tags[0] }}
                 </div>
                 <div class="card-subtitle d-flex align-items-center">
-                  <h3
+                  <h4
                     class="card-title"
                     :id="'blog-' + type + 'title-' + index"
                   >
                     {{ article.data().title }}
-                  </h3>
+                  </h4>
                 </div>
                 <p
                   class="card-text bajada"
@@ -91,12 +91,12 @@
                   {{ article.data().tags[0] }}
                 </div>
                 <div class="card-subtitle d-flex align-items-center">
-                  <h3
+                  <h4
                     class="card-title"
                     :id="'blog-' + type + 'title-' + index"
                   >
                     {{ article.data().title }}
-                  </h3>
+                  </h4>
                 </div>
                 <p
                   class="card-text bajada"
@@ -215,7 +215,7 @@ a:hover {
   font-weight: 900;
 }
 
-h3 {
+h4 {
   color: $black;
   font-size: 18px;
   font-weight: 400;

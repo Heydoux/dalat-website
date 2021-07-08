@@ -111,18 +111,7 @@ export default {
   },
   data() {
     return {
-      article: {
-        title: null,
-        content: null,
-        recomendado: false,
-        tags: [],
-        image: null,
-        date: null,
-        shared: 0,
-        excerpt: null,
-        readingTime: 0,
-        urlTitle: null
-      },
+      article: {},
       content: null,
       blogUrl: "",
       counter: 0,
@@ -266,7 +255,6 @@ nav.breadcrumb [aria-current="page"] {
     }
   }
 }
-
 h3 {
   color: $blue;
 }
@@ -320,7 +308,7 @@ p.ql-align-center {
     button {
       color: #000000 !important;
       cursor: pointer;
-      padding: 0.5rem !important;
+      padding: 11px !important;
       border: 1px solid #000000;
       width: fit-content;
       border-radius: 50%;

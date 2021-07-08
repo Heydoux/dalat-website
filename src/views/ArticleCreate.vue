@@ -186,8 +186,9 @@ import { Video } from "./../assets/js/quill-video-resize.js";
 import "./../assets/js/quill-alt-image.js";
 
 Quill.register({ "formats/video": Video });
+/*Quill.register({ "formats/image": Image });
 
-/*import VideoResize from "quill-video-resize-module";
+import VideoResize from "quill-video-resize-module";
 
 Quill.register("modules/VideoResize", VideoResize);*/
 

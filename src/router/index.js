@@ -147,11 +147,11 @@ const routes = [
     }
   },
   {
-    path: "/blog",
+    path: "/blog/",
     name: "Blog",
     component: Blog,
     meta: {
-      title: "Dalat Blog",
+      title: "Blog",
       metaTags: [
         {
           name: "description",

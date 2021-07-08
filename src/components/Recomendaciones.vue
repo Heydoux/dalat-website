@@ -13,11 +13,16 @@
               v-for="(autor, index) in article.data().checkedProf"
               v-bind:key="index"
             >
-              <img
-                :src="autor"
-                class="imagen"
-                alt=""
-              />
+              <img v-if="index < 2" :src="autor" class="imagen" alt="" />
+              <div v-else>
+                <span
+                  v-if="
+                    index == Object.keys(article.data().checkedProf).length - 1
+                  "
+                >
+                  +{{ index + 1 - 2 }}
+                </span>
+              </div>
             </div>
           </div>
           <div class="text-block">
@@ -64,6 +69,7 @@ export default {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
+          console.log(doc.data().checkedProfs);
           /*if (doc.data().checkedProf.length > 2) {
             this.checkedProfs.push("/img/imagotipo.583e5cd4.svg");
           } else {
@@ -100,6 +106,12 @@ export default {
       border: 2px solid $blue;
       margin-left: -10px;
     }
+  }
+
+  span {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    font-weight: bold;
   }
 }
 

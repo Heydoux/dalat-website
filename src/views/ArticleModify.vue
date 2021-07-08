@@ -185,9 +185,11 @@
 import { fb, db } from "../firebase";
 import { VueEditor, Quill } from "vue2-editor";
 import { Video } from "./../assets/js/quill-video-resize.js";
-import "./../assets/js/quill-alt-image.js";
+//import "./../assets/js/quill-alt-image.js";
+import { ImageBlot } from "./../assets/js/quill-create-alt.js";
 
 Quill.register({ "formats/video": Video });
+Quill.register({ "formats/image": ImageBlot });
 
 export default {
   name: "ArticleCreate",
@@ -198,20 +200,7 @@ export default {
   data() {
     return {
       toUpdate: false,
-      article: {
-        title: null,
-        content: null,
-        recomendado: false,
-        tags: [],
-        image: null,
-        date: null,
-        shared: 0,
-        excerpt: null,
-        readingTime: 0,
-        urlTitle: null,
-        altthumbnail: null,
-        checkedProf: []
-      },
+      article: {},
       checkedProfs: [],
       activeItem: null,
       activeImg: null,
@@ -279,6 +268,7 @@ export default {
         } else {
           this.article.readingTime = readingTime;
         }
+        this.article.checkedProf = [];
         this.checkedProfs.forEach(element => {
           this.article.checkedProf.push(element);
         });

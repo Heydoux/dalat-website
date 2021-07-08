@@ -17,15 +17,19 @@
           </p>
         </div>
       </div>
-      <h2 class="my-4 font-weight-bold">BLOG</h2>
-      <p class="font-weight-bold" style="color: rgb(10, 48, 85);">
-        Mira las notas más recientes
-      </p>
-      <CardsVertical type="date" limit="3"></CardsVertical>
-      <h2 class="my-4 font-weight-bold">
-        Lo más compartido
-      </h2>
-      <CardsHorizontal type="shared" size="half"></CardsHorizontal>
+      <section>
+        <h2 class="my-4 font-weight-bold">BLOG</h2>
+        <h3 class="font-weight-bold mb-4" style="color: rgb(10, 48, 85);">
+          Mira las notas más recientes
+        </h3>
+        <CardsVertical type="date" limit="3"></CardsVertical>
+      </section>
+      <section>
+        <h3 class="my-4 font-weight-bold" style="color: rgb(10, 48, 85);">
+          Lo más compartido
+        </h3>
+        <CardsHorizontal type="shared" size="half"></CardsHorizontal>
+      </section>
       <Fin></Fin>
     </main>
     <Footer></Footer>

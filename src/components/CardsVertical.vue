@@ -34,7 +34,7 @@
                 class="card-subtitle h6 d-flex align-items-center"
                 :id="'blog-' + type + 'title-' + index"
               >
-                <h3>{{ article.data().title }}</h3>
+                <h4>{{ article.data().title }}</h4>
               </div>
               <p
                 class="bajada card-text"
@@ -135,7 +135,7 @@ a:hover {
   font-weight: 900;
 }
 
-h3 {
+h4 {
   color: $black;
   font-size: 18px;
   font-weight: 400;
