@@ -30,7 +30,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: "Contacto",
+      title: "Contacto - DALAT Comunidad",
       meta: [
         { property: "og:title", content: "Contacto" },
         { property: "og:site_name", content: "Dalat Comunidad" },

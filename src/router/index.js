@@ -23,7 +23,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Inicio",
+      title: "Inicio - DALAT Comunidad",
       metaTags: [
         {
           name: "description",
@@ -56,7 +56,7 @@ const routes = [
     name: "login",
     component: Login,
     meta: {
-      title: "Administración"
+      title: "Administración - DALAT Comunidad"
     }
   },
   {
@@ -98,7 +98,7 @@ const routes = [
     name: "About",
     component: SobreDalat,
     meta: {
-      title: "Sobre Dalat",
+      title: "Sobre Dalat - DALAT Comunidad",
       metaTags: [
         {
           name: "description",
@@ -126,7 +126,7 @@ const routes = [
     name: "Contact",
     component: Contacto,
     meta: {
-      title: "Contacto",
+      title: "Contacto - DALAT Comunidad",
       metaTags: [
         {
           name: "description",
@@ -154,7 +154,7 @@ const routes = [
     name: "Blog",
     component: Blog,
     meta: {
-      title: "Blog",
+      title: "Blog - DALAT Comunidad",
       metaTags: [
         {
           name: "description",

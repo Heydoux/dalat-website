@@ -129,10 +129,18 @@
               <p>
                 Vamos a impulsar una nueva ley de Accesibilidad Argentina.
                 <a
+                  href="http://scw.pjn.gov.ar/scw/viewer.seam?id=ZaUkwK5YXWJ6GGzNdZ8KcMuIH1oJRE6be91fnRqmhzs%3D&tipoDoc=despacho&cid=7300438"
+                  target="_blank"
+                >
+                  Ley actual        
+                  <span class="sr-only">Abre en otra pagina</span>
+                </a>
+                -
+                <a
                   href="https://acij.org.ar/sentencia-web-accesible/"
                   target="_blank"
                 >
-                  Ley actual Sentencia web accesible
+                  Sentencia web accesible 
                   <span class="sr-only">Abre en otra pagina</span>
                 </a>
               </p>
@@ -228,7 +236,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: "Sobre Dalat",
+      title: "Sobre Dalat - DALAT Comunidad",
       meta: [
         { property: "og:title", content: "Sobre Dalat" },
         { property: "og:site_name", content: "Dalat Comunidad" },
@@ -251,11 +259,11 @@ export default {
 .sobre-dalat {
   h2 {
     font-weight: 600;
-    margin: 3.359vh 0;
+    margin: 75px 0 25px;
   }
 
   h3 {
-    margin-top: 3.359vh;
+    margin-top: 25px;
   }
 
   a {

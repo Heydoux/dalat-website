@@ -186,7 +186,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: `${this.article.title}`,
+      title: `${this.article.title} - DALAT Comunidad`,
       meta: [
         { name: "description", content: this.article.excerpt },
         { property: "og:title", content: this.article.title },

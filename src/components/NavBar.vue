@@ -97,7 +97,7 @@ export default {
   display: block;
 }
 header {
-  padding: 10px 0;
+  padding: 26px 0 10px;
   box-shadow: 0px 3px 6px $shadow;
 
   #skipcontent {

@@ -85,11 +85,11 @@
             </a>
           </li>
         </ul>
-        <h2 class="text-uppercase">Unite a Slack</h2>
+        <h2 class="text-uppercase">Unete a Slack</h2>
         <p class="unite">
-          Podes ser parte de la comunidad solicitando unirte a Slack.
+          Puedes ser parte de la comunidad solicitando unirte a Slack.
         </p>
-        <h2 class="text-uppercase">¿Querés escribirnos por mail?</h2>
+        <h2 class="text-uppercase">¿Quieres escribirnos por mail?</h2>
         <a href="mailto:contacto@dalatcomunidad.org" class="mail">
           contacto@dalatcomunidad.org
         </a>
@@ -102,7 +102,7 @@
           method="POST"
         >
           <div class="form-group" data-children-count="1">
-            <label class="form-label" for="name">Nombre</label>
+            <label class="form-label" for="name">Nombre y Apellido</label>
             <input
               required=""
               placeholder="Ej: Juan Dominguez"
@@ -111,7 +111,12 @@
               name="name"
               class="form-control"
               v-model="name"
+              aria-invalid="true"
+              aria-describedby="=err_nombre"
             />
+            <span class="errtext sr-only" id="err_nombre">
+              Error: Escribe su nombre y apellido
+            </span>
           </div>
           <div class="form-group" data-children-count="1">
             <label class="form-label" for="email">Email</label>
@@ -125,7 +130,12 @@
               class="form-control"
               data-kwimpalastatus="alive"
               data-kwimpalaid="1610903784165-1"
+              aria-invalid="true"
+              aria-describedby="=err_mail"
             />
+            <span class="errtext sr-only" id="err_mail">
+              Error: Ese campo debe ser un mail
+            </span>
           </div>
           <div class="form-group" data-children-count="1">
             <label class="form-label" for="message">Mensaje</label>
@@ -137,8 +147,13 @@
               id="message"
               v-model="message"
               class="form-control"
+              aria-invalid="true"
+              aria-describedby="=err_message"
             >
             </textarea>
+            <span class="errtext sr-only" id="err_message">
+              Error: Escribe un mensaje
+            </span>
           </div>
           <button type="submit" class="boton btn btn-primary">Enviar</button>
         </form>
@@ -216,6 +231,14 @@ export default {
   color: #fff;
   background-color: #713e94;
   border-color: #713e94;
+}
+
+
+.btn-primary[data-v-1b5a9218]:focus {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+  box-shadow: none;
 }
 
 h2 {

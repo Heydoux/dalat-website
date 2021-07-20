@@ -52,7 +52,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: "Blog",
+      title: "Blog - DALAT Comunidad",
       meta: [
         { property: "og:title", content: "Blog" },
         { property: "og:site_name", content: "Dalat Comunidad" },
