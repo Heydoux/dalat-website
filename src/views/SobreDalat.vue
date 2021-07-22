@@ -132,7 +132,7 @@
                   href="http://scw.pjn.gov.ar/scw/viewer.seam?id=ZaUkwK5YXWJ6GGzNdZ8KcMuIH1oJRE6be91fnRqmhzs%3D&tipoDoc=despacho&cid=7300438"
                   target="_blank"
                 >
-                  Ley actual        
+                  Ley actual
                   <span class="sr-only">Abre en otra pagina</span>
                 </a>
                 -
@@ -140,7 +140,7 @@
                   href="https://acij.org.ar/sentencia-web-accesible/"
                   target="_blank"
                 >
-                  Sentencia web accesible 
+                  Sentencia web accesible
                   <span class="sr-only">Abre en otra pagina</span>
                 </a>
               </p>

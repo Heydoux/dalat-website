@@ -233,7 +233,6 @@ export default {
   border-color: #713e94;
 }
 
-
 .btn-primary[data-v-1b5a9218]:focus {
   color: #fff;
   background-color: #713e94;

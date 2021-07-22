@@ -4,59 +4,70 @@
       v-for="(article, index) in articles"
       v-bind:key="index"
       class="col-md-6"
+      v-on:mousedown="mouseDown"
+      v-on:mouseup="mouseUp($event)"
     >
-      <a
-        href="javascript:void(0)"
-        class="d-inline-block w-100 mb-3"
-        @click="forceRerender(`/blog/${article.data().urlTitle}`, article.id)"
-        :aria-labelledby="'blog-' + type + 'title-' + index"
-        :aria-describedby="
-          'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
-        "
-      >
-        <div class="card body-card">
-          <div class="row ">
-            <div class="col-card-4">
-              <div class="image-wrapper-horiz">
-                <img
-                  :src="article.data().image"
-                  :alt="article.data().altthumbnail"
-                  class="card-img-top"
-                />
-              </div>
+      <div class="card body-card horizontal-body">
+        <div class="row ">
+          <div class="col-card-4">
+            <div class="image-wrapper-horiz">
+              <img
+                :src="article.data().image"
+                :alt="article.data().altthumbnail"
+                class="card-img-top"
+              />
             </div>
-            <div class="col-card-8">
-              <div class="card-body">
-                <div class="categoria card-title h5 text-uppercase">
-                  {{ article.data().tags[0] }}
-                </div>
-                <div class="card-subtitle d-flex align-items-center">
-                  <h4
-                    class="card-title"
-                    :id="'blog-' + type + 'title-' + index"
+          </div>
+          <div class="col-card-8">
+            <div class="card-body">
+              <div class="categoria card-title h5 text-uppercase">
+                {{ article.data().tags[0] }}
+              </div>
+              <div class="card-subtitle d-flex align-items-center">
+                <h4 class="card-title" :id="'blog-' + type + 'title-' + index">
+                  <a
+                    href="javascript:void(0)"
+                    class="d-inline-block w-100 mb-3"
+                    @click="
+                      forceRerender(
+                        `/blog/${article.data().urlTitle}`,
+                        article.id
+                      )
+                    "
+                    :aria-labelledby="'blog-' + type + 'title-' + index"
+                    :aria-describedby="
+                      'blog-' +
+                        type +
+                        'desc-' +
+                        index +
+                        ' blog-' +
+                        type +
+                        'time-' +
+                        index
+                    "
                   >
                     {{ article.data().title }}
-                  </h4>
-                </div>
-                <p
-                  class="card-text bajada"
-                  :id="'blog-' + type + 'desc-' + index"
-                >
-                  {{ article.data().excerpt }}
-                </p>
-                <p class="card-text tiempo">
-                  <span class="lectura" aria-hidden="true">
-                    Tiempo de lectura: {{ article.data().readingTime }}’
-                  </span>
-                  <span class="sr-only" :id="'blog-' + type + 'time-' + index">
-                    Tiempo de lectura: {{ article.data().readingTime }} minutos
-                  </span>
-                </p>
+                  </a>
+                </h4>
               </div>
+              <p
+                class="card-text bajada"
+                :id="'blog-' + type + 'desc-' + index"
+              >
+                {{ article.data().excerpt }}
+              </p>
+              <p class="card-text tiempo">
+                <span class="lectura" aria-hidden="true">
+                  Tiempo de lectura: {{ article.data().readingTime }}’
+                </span>
+                <span class="sr-only" :id="'blog-' + type + 'time-' + index">
+                  Tiempo de lectura: {{ article.data().readingTime }} minutos
+                </span>
+              </p>
             </div>
           </div>
         </div>
-      </a>
+      </div>
     </article>
   </div>
   <div v-else class="row">
@@ -64,59 +75,70 @@
       v-for="(article, index) in articles"
       v-bind:key="index"
       class="col-md-12"
+      v-on:mousedown="mouseDown"
+      v-on:mouseup="mouseUp($event)"
     >
-      <a
-        href="javascript:void(0)"
-        class="d-inline-block w-100 mb-3"
-        @click="forceRerender(`/blog/${article.data().urlTitle}`, article.id)"
-        :aria-labelledby="'blog-' + type + 'title-' + index"
-        :aria-describedby="
-          'blog-' + type + 'desc-' + index + ' blog-' + type + 'time-' + index
-        "
-      >
-        <div class="card body-card">
-          <div class="row ">
-            <div class="col-card-4">
-              <div class="image-wrapper-horiz">
-                <img
-                  :src="article.data().image"
-                  :alt="article.data().altthumbnail"
-                  class="card-img-top"
-                />
-              </div>
+      <div class="card body-card horizontal-body">
+        <div class="row ">
+          <div class="col-card-4">
+            <div class="image-wrapper-horiz">
+              <img
+                :src="article.data().image"
+                :alt="article.data().altthumbnail"
+                class="card-img-top"
+              />
             </div>
-            <div class="col-card-8">
-              <div class="card-body">
-                <div class="categoria card-title h5 text-uppercase">
-                  {{ article.data().tags[0] }}
-                </div>
-                <div class="card-subtitle d-flex align-items-center">
-                  <h4
-                    class="card-title"
-                    :id="'blog-' + type + 'title-' + index"
+          </div>
+          <div class="col-card-8">
+            <div class="card-body">
+              <div class="categoria card-title h5 text-uppercase">
+                {{ article.data().tags[0] }}
+              </div>
+              <div class="card-subtitle d-flex align-items-center">
+                <h4 class="card-title" :id="'blog-' + type + 'title-' + index">
+                  <a
+                    href="javascript:void(0)"
+                    class="d-inline-block w-100 mb-3"
+                    @click="
+                      forceRerender(
+                        `/blog/${article.data().urlTitle}`,
+                        article.id
+                      )
+                    "
+                    :aria-labelledby="'blog-' + type + 'title-' + index"
+                    :aria-describedby="
+                      'blog-' +
+                        type +
+                        'desc-' +
+                        index +
+                        ' blog-' +
+                        type +
+                        'time-' +
+                        index
+                    "
                   >
                     {{ article.data().title }}
-                  </h4>
-                </div>
-                <p
-                  class="card-text bajada"
-                  :id="'blog-' + type + 'desc-' + index"
-                >
-                  {{ article.data().excerpt }}
-                </p>
-                <p class="card-text tiempo">
-                  <span class="lectura" aria-hidden="true">
-                    Tiempo de lectura: {{ article.data().readingTime }}’
-                  </span>
-                  <span class="sr-only" :id="'blog-' + type + 'time-' + index">
-                    Tiempo de lectura: {{ article.data().readingTime }} minutos
-                  </span>
-                </p>
+                  </a>
+                </h4>
               </div>
+              <p
+                class="card-text bajada"
+                :id="'blog-' + type + 'desc-' + index"
+              >
+                {{ article.data().excerpt }}
+              </p>
+              <p class="card-text tiempo">
+                <span class="lectura" aria-hidden="true">
+                  Tiempo de lectura: {{ article.data().readingTime }}’
+                </span>
+                <span class="sr-only" :id="'blog-' + type + 'time-' + index">
+                  Tiempo de lectura: {{ article.data().readingTime }} minutos
+                </span>
+              </p>
             </div>
           </div>
         </div>
-      </a>
+      </div>
     </article>
   </div>
 </template>
@@ -130,7 +152,8 @@ export default {
   data() {
     return {
       articles: [],
-      componentKey: 0
+      componentKey: 0,
+      clickTimer: 0
     };
   },
   methods: {
@@ -138,6 +161,19 @@ export default {
       console.log(url);
       //this.$router.go(url);
       window.location.href = url + "?articleId=" + articleId;
+    },
+    mouseDown() {
+      this.clickTimer = +new Date();
+    },
+    mouseUp(event) {
+      let elem = event.target;
+      let article = elem.closest("article");
+      let up,
+        link = article.querySelector("h4 a");
+      up = +new Date();
+      if (up - this.clickTimer < 200) {
+        link.click();
+      }
     }
   },
   created() {
