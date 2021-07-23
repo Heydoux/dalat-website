@@ -111,7 +111,6 @@
               name="name"
               class="form-control"
               v-model="name"
-              aria-invalid="true"
               aria-describedby="=err_nombre"
             />
             <span class="errtext sr-only" id="err_nombre">
@@ -130,7 +129,6 @@
               class="form-control"
               data-kwimpalastatus="alive"
               data-kwimpalaid="1610903784165-1"
-              aria-invalid="true"
               aria-describedby="=err_mail"
             />
             <span class="errtext sr-only" id="err_mail">
@@ -147,7 +145,6 @@
               id="message"
               v-model="message"
               class="form-control"
-              aria-invalid="true"
               aria-describedby="=err_message"
             >
             </textarea>
