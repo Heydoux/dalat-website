@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6">
-        <h2 class="text-uppercase">Redes Sociales</h2>
+        <h2>Redes sociales</h2>
         <ul class="d-inline-block list-unstyled lista" role="list">
           <li class="d-inline-block ">
             <a
@@ -10,7 +10,7 @@
               target="_blank"
               rel="noreferrer"
               class="anchor"
-              aria-label="Encontranos en Slack"
+              aria-label="Slack"
             >
               <img
                 src="@/assets/images/form/slack-icon.png"
@@ -68,91 +68,78 @@
               />
             </a>
           </li>
-          <li class="d-inline-block">
-            <a
-              href="https://collectednotes.com/dalat"
-              target="_blank"
-              rel="noreferrer"
-              class="anchor"
-              aria-label="Collected Notes"
-            >
-              <img
-                src="@/assets/images/form/CollectedNotes-icon.png"
-                alt=""
-                class="icon"
-                aria-hidden="true"
-              />
-            </a>
-          </li>
         </ul>
-        <h2 class="text-uppercase">Unete a Slack</h2>
+        <h2>Únete a Slack</h2>
         <p class="unite">
           Puedes ser parte de la comunidad solicitando unirte a Slack.
         </p>
-        <h2 class="text-uppercase">¿Quieres escribirnos por mail?</h2>
+        <h2>¿Quieres escribirnos por mail?</h2>
         <a href="mailto:contacto@dalatcomunidad.org" class="mail">
           contacto@dalatcomunidad.org
         </a>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6">        
         <form
+          id="contact-form"
           role="form"
           aria-label="Formulario de Contacto"
-          action="https://formspree.io/f/mqkwlreq"
-          method="POST"
+          @submit.prevent="submitForm"
         >
+          <p class="font-weight-bold">Todos los campos son obligatorios.</p>
+          <div class="error-form" v-if="msg.name || msg.email || msg.msg">
+            <p>{{ msg.error }}</p>
+            <ul>
+              <li v-if="msg.name">{{ msg.name }}</li>
+              <li v-if="msg.email">{{ msg.email }}</li>
+              <li v-if="msg.msg">{{ msg.msg }}</li>
+            </ul>
+          </div>
+          <!-- action="https://formspree.io/f/mqkwlreq" -->
           <div class="form-group" data-children-count="1">
             <label class="form-label" for="name">Nombre y Apellido</label>
             <input
-              required=""
-              placeholder="Ej: Juan Dominguez"
+              required
+              placeholder="Ejemplo: Juan Dominguez"
               id="name"
-              type="name"
+              type="text"
+              inputmode="text"
               name="name"
               class="form-control"
               v-model="name"
-              aria-describedby="=err_nombre"
             />
-            <span class="errtext sr-only" id="err_nombre">
-              Error: Escribe su nombre y apellido
-            </span>
           </div>
           <div class="form-group" data-children-count="1">
             <label class="form-label" for="email">Email</label>
             <input
-              required=""
-              placeholder="Ej: juandominguez@gmail.com"
+              required
+              placeholder="Ejemplo: juandominguez@gmail.com"
               id="email"
               type="email"
+              inputmode="email"
               name="email"
               v-model="email"
               class="form-control"
               data-kwimpalastatus="alive"
               data-kwimpalaid="1610903784165-1"
-              aria-describedby="=err_mail"
             />
-            <span class="errtext sr-only" id="err_mail">
-              Error: Ese campo debe ser un mail
-            </span>
           </div>
           <div class="form-group" data-children-count="1">
             <label class="form-label" for="message">Mensaje</label>
             <textarea
-              required=""
+              required
               rows="5"
               placeholder="Escribe tu mensaje"
               name="message"
               id="message"
               v-model="message"
               class="form-control"
-              aria-describedby="=err_message"
             >
             </textarea>
-            <span class="errtext sr-only" id="err_message">
-              Error: Escribe un mensaje
-            </span>
           </div>
-          <button type="submit" class="boton btn btn-primary">Enviar</button>
+          <button class="boton btn btn-primary" type="submit">
+            Enviar
+          </button>
+          <p id="my-form-status" class="font-weight-bold"></p>
         </form>
       </div>
     </div>
@@ -160,33 +147,68 @@
 </template>
 
 <script>
-import { db } from "../firebase";
+import axios from "axios";
 
 export default {
   name: "Form",
   props: {},
   data() {
     return {
-      errors: [],
-      email: null,
-      name: null,
-      message: null
+      email: "",
+      name: "",
+      message: "",
+      endpoint: "https://formspree.io/f/mqkwlreq",
+      msg: []
     };
   },
   methods: {
-    saveContactMessage(e) {
-      e.preventDefault();
-      const messagesRef = db.collection("message");
-      messagesRef.add({
+    async submitForm() {
+      var status = document.getElementById("my-form-status");
+      var form = document.getElementById("contact-form");
+      const data = {
         name: this.name,
         email: this.email,
-        message: this.message,
-        time: new Date()
-      });
-      this.name = "";
-      this.email = "";
-      this.message = "";
+        message: this.message
+      };
+      await axios
+        .post(this.endpoint, data)
+        .then(response => {
+          console.log(response);
+          status.innerHTML = "Gracias por su mensaje";
+          form.reset();
+        })
+        .catch(err => {
+          console.log(err);
+          status.innerHTML =
+            "Error: Hubo un error intentando enviar su formulario";
+        });
     }
+  },
+  watch: {
+    name(value) {
+      this.msg["error"] = "Por favor, compruebe los siguientes campos:";
+      if (value === "") {
+        this.msg["name"] = "Nombre y apellido es un campo requerido.";
+      } else {
+        this.msg["name"] = "";
+      }
+    },
+    email(value) {
+      this.msg["error"] = "Por favor, compruebe los siguientes campos:";
+      if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        this.msg["email"] = "";
+      } else {
+        this.msg["email"] = "Ingrese un correo electrónico válido.";
+      }
+    },
+    message(value) {
+      this.msg["error"] = "Por favor, compruebe los siguientes campos:";
+      if (value === "") {
+        this.msg["msg"] = "Mensaje es un campo requerido.";
+      } else {
+        this.msg["msg"] = "";
+      }
+    },
   }
 };
 </script>
@@ -224,13 +246,13 @@ export default {
   box-shadow: 0 0 0 0.2rem rgba(113, 62, 148, 25%);
 }
 
-.btn-primary[data-v-1b5a9218]:hover {
+.btn-primary:hover {
   color: #fff;
   background-color: #713e94;
   border-color: #713e94;
 }
 
-.btn-primary[data-v-1b5a9218]:focus {
+.btn-primary:focus {
   color: #fff;
   background-color: #713e94;
   border-color: #713e94;
@@ -261,6 +283,13 @@ h2 {
       box-shadow: 0 0 0 2px $white, 0 0 0 4px $blue, 0 0 0 6px $white;
     }
   }
+}
+
+.error-form {
+  padding: 1rem;
+  border: 1px solid red;
+  background-color: rgb(255, 188, 198);
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 768px) {

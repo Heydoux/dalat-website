@@ -3,7 +3,7 @@
     <article
       v-for="(article, index) in articles"
       v-bind:key="index"
-      class="col-md-6"
+      class="col-md-6 mb-3"
       v-on:mousedown="mouseDown"
       v-on:mouseup="mouseUp($event)"
     >
@@ -27,7 +27,7 @@
                 <h4 class="card-title" :id="'blog-' + type + 'title-' + index">
                   <a
                     href="javascript:void(0)"
-                    class="d-inline-block w-100 mb-3"
+                    class="d-inline-block w-100"
                     @click="
                       forceRerender(
                         `/blog/${article.data().urlTitle}`,
@@ -74,7 +74,7 @@
     <article
       v-for="(article, index) in articles"
       v-bind:key="index"
-      class="col-md-12"
+      class="col-md-12 mb-3"
       v-on:mousedown="mouseDown"
       v-on:mouseup="mouseUp($event)"
     >
@@ -98,7 +98,7 @@
                 <h4 class="card-title" :id="'blog-' + type + 'title-' + index">
                   <a
                     href="javascript:void(0)"
-                    class="d-inline-block w-100 mb-3"
+                    class="d-inline-block w-100"
                     @click="
                       forceRerender(
                         `/blog/${article.data().urlTitle}`,
@@ -167,11 +167,16 @@ export default {
     },
     mouseUp(event) {
       let elem = event.target;
+      var isRightMB;
+      event = event || window.event;
+      if ("which" in event) isRightMB = event.which == 3;
+      else if ("button" in event) isRightMB = event.button == 2;
+
       let article = elem.closest("article");
       let up,
         link = article.querySelector("h4 a");
       up = +new Date();
-      if (up - this.clickTimer < 200) {
+      if (up - this.clickTimer < 200 && !isRightMB) {
         link.click();
       }
     }
@@ -192,6 +197,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
+article {
+  .horizontal-body {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px $blue;
+      outline: 0;
+    }
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px $blue;
+      outline: 0;
+
+      a {
+        text-decoration: none;
+        box-shadow: none;
+
+        &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+
+    a:focus {
+      text-decoration: underline;
+    }
+  }
+}
 .body-card {
   background-color: $grey;
   border: none;

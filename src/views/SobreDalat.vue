@@ -10,7 +10,7 @@
       <Banner></Banner>
       <div class="container mt-5">
         <div class="row">
-          <div class="col-md-8 offset-2">
+          <div class="col-md-8 offset-md-2">
             <div class="presentacion">
               <p>
                 Somos una comunidad latinoamericana sin fines de lucro que tiene

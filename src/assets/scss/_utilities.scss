@@ -72,6 +72,19 @@ h3 {
   transform: translate(-50%, -50%);
 }
 
+.btn-primary:hover {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+}
+
+.btn-primary:focus {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+  box-shadow: none;
+}
+
 #content {
   img {
     max-width: 100%;
