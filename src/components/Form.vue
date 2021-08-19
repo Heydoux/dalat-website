@@ -78,7 +78,7 @@
           contacto@dalatcomunidad.org
         </a>
       </div>
-      <div class="col-lg-6">        
+      <div class="col-lg-6">
         <form
           id="contact-form"
           role="form"
@@ -208,7 +208,7 @@ export default {
       } else {
         this.msg["msg"] = "";
       }
-    },
+    }
   }
 };
 </script>
@@ -239,6 +239,19 @@ export default {
   position: relative;
   right: -13.438vw;
   border: none;
+}
+
+::placeholder {
+  color: #797676 !important;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: #797676;
+}
+
+::-ms-input-placeholder {
+  color: #797676;
 }
 
 .form-control:focus {

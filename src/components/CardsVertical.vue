@@ -273,4 +273,23 @@ h4 {
   border-radius: 12px 2px;
   border: none;
 }
+
+.btn-mas:hover {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+}
+
+.btn-mas:active {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+}
+
+.btn-mas:focus {
+  color: #fff;
+  background-color: #713e94;
+  border-color: #713e94;
+  box-shadow: none;
+}
 </style>

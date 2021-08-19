@@ -203,7 +203,11 @@
                 </div>
                 <div class="col">
                   <h3 class="text-center font-weight-bold">
-                    Accesibilidad Web Costa Rica
+                    <img
+                      src="@/assets/images/sobredalat/Webacc-costarica.png"
+                      alt="Accesibilidad Web Costa Rica"
+                      class="img-fluid"
+                    />
                   </h3>
                 </div>
               </div>

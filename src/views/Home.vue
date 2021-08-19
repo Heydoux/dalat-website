@@ -3,10 +3,10 @@
     <Navbar></Navbar>
     <main id="mainContent" class="container-lg">
       <div class="row">
-        <div class="col-md-8 order-md-2 mb-3">
+        <div class="col-lg-8 order-md-2 mb-3">
           <Banner></Banner>
         </div>
-        <div class="col-md-4 order-md-1">
+        <div class="col-lg-4 order-md-1">
           <h1 class="mb-5">
             Desarrollo Accesible Latinoamericano
           </h1>
